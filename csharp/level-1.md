@@ -202,7 +202,7 @@ attribute)
 - If declared but not initialized, entities of an array would be set to zero value of the array type
 - Zero value for numbers is zero, for string is empty string: “” and for boolean is false.
 
-String
+### String
 - A sequence of characters
 - String => a class in .Net, string => C#
 - Use double quote for string literal
@@ -231,37 +231,36 @@ String
 array as argument
     - Example: ```var name = new string(array);```
 
-Enums:
+## Enums:
 - A set of name / value pairs (constants)
 - Declaration: \<access-modifier> enum \<identifier> {}
 - Values are integers
 - Identifier should be PascalCase. Because it’s a constant
 - Items are comma separated. Semicolon after the latest item.
 - Example:
-    ```
-        public enum WeekDay 
-        {
-            Sunday = 1,
-            Monday = 2,
-            Tuesday = 3,
-            Wednesday = 4,
-            Thursday - 5,
-            Friday = 6,
-            Saturday = 7;
-        }
-    ```
+  ```
+  public enum WeekDay 
+  {
+  Sunday = 1,
+      Monday = 2,
+      Tuesday = 3,
+      Wednesday = 4,
+      Thursday - 5,
+      Friday = 6,
+      Saturday = 7;
+  }
+  ```
 - If values (1, 2, …) are not gives, it will start from one by default.
-- Usage: with dot notation
-- ```var day = WeekDay.Wednesday;```
+- Usage: with dot notation ```var day = WeekDay.Wednesday;```
 - Note: type of day variable is WeekDay. It is cast-able to integer
 - To declare a byte Enum: ```public enum Weekday : byte {} ```
-- To convert day to string: day.ToString();
+- To convert day to string: ```day.ToString();```
 - Note: ```Console.WriteLine(day);``` calls the ToString() method of the day object internally
 - To convert string (exp: “Friday”) to WeekDay enum: ```var day2 = (WeekDay) Enum.Parse(typeof(WeekDay), “Monday”);```
 - Enum class is in System namespace
-- Enum.Parse() returns an object type that can be cast to WeekDay
+- ```Enum.Parse()``` returns an object type that can be cast to WeekDay
 
-Structures VS Classes
+## Structures VS Classes
 - Primitive types and custom structs are structures
 - Arrays, strings and custom classes are classes
 - Structures are value types. Classes are reference types 
@@ -277,22 +276,22 @@ Structures VS Classes
 - Passing a value type variable to a function as argument would copy its value to a new variable in that function scope. It will end up with two variables with the same value but two different addresses in stack with two different scopes. (Even if they have the same name)
 - Passing a reference type object to a function as argument would copy its address to a new variable in that function scope. Both variables in two scopes (inside and outside if the function) will point to the same space in heap (value). Changing object properties in either scope would change the value in the same heap memory space.
 
-Condition statements:
-- If statement syntax: 
-    ```
-        if (logical condition)
-            {
-            statement;
-            }
-        else if (logical condition 2)
-            {
-            statement 2;
-            }
-        else
-            {
-            statement 3;
-            }
-    ```
+## Condition statements:
+### If statement syntax: 
+  ```
+  if (logical condition)
+  {
+    statement;
+  }
+  else if (logical condition 2)
+  {
+    statement 2;
+  }
+  else
+  {
+    statement 3;
+  }
+  ```
 - If a statement is only one line, there would be no need for curly braces
 - Example: 
     ```
@@ -301,114 +300,113 @@ Condition statements:
     ```
 - You can have as many else if conditions as you want
 - If statements can be nested. Do your best to avoid nested if statements
-- Switch / case syntax:
-    ```
-    switch(variableName)
-    {
-        case value1:
-            multi-line indented statement
-            break;
-        case value2:
-            multi-line indented statement
-            break;
-        case value3:
-        case value4:
-            multi-line indented statement
-            break;
-        default:
-            multi-line indented statement
-            break
-    }
-    ```
+### Switch / case syntax:
+  ```
+  switch(variableName)
+  {
+    case value1:
+      multi-line indented statement
+      break;
+    case value2:
+      multi-line indented statement
+      break;
+    case value3:
+    case value4:
+      multi-line indented statement
+      break;
+    default:
+      multi-line indented statement
+      break
+  }
+  ```
 - You can have as many cases as you want
 - If break is not specified all statements after the first matching 
 condition will be run
 - Switch / case is equivalent to if/else if/else statement
 - One use case of switch / case is matching a value with an enum.
 
-Iteration statements
-- For loop:
-    - Suitable to work with indices. 
-    - It loops over until a logical statement is correct
-    - Syntax:
-    ```
-    for (var i = 0; i <= 20; i++)
-    {
-        statement;
-    }
-    ```
+## Iteration statements
+### For loop:
+- Suitable to work with indices. 
+- It loops over until a logical statement is correct
+- Syntax:
+  ```
+  for (var i = 0; i <= 20; i++)
+  {
+      statement;
+  }
+  ```
   - The first part (var i = 0) is called initialization clause
   - The second part (i <= 20) is called the condition clause
   - The third part (i++) is called the iteration clause
-  - If the statement is only one line, then you can omit the curly 
-braces
+  - If the statement is only one line, then you can omit the curly braces
   - Iteration could also be a decrement. (Start from 20 and decrement to 0)
-  - Foreach loop:
-      - To iterate over elements of an enumerable object
-      - Syntax: assume numbers is an array of numbers
-      ```
-      foreach (var number in numbers)
-      {
-          statement;
-      }
-      ```
-      - If the statement is only one line, then you can omit the curly 
-  braces
-      - You can run a foreach loop over characters of a string
-
-- While loop:
-    - It only has condition clause
-    - It checks the condition before running each loop
-    - It stay in the loop as long as the condition is true
-    - The initialization clause should be outside and before the hail loop
-    - The iteration clause should be inside the while loop statements
-    - Syntax:
+### Foreach loop:
+  - To iterate over elements of an enumerable object
+  - Syntax: assume numbers is an array of numbers
     ```
-    var i = 0;
-    while (i < 10)
-        {
-            statement;
-            i++;
-        }
-    ```
-    - Iteration could also be a decrement. (Start from 10 and decrement to 0)
-- Do-While loop
-    - Similar to while loop, but it checks the condition after running each 
-loop
-    - Syntax:
-    ```
-    var i = 0;
-    do
+    foreach (var number in numbers)
     {
         statement;
-        i++;
-    } while (i < 10);
+    }
     ```
-    - Do-while loop will run the inner statement at least once 
+      
+  - If the statement is only one line, then you can omit the curly 
+    braces
+        - You can run a foreach loop over characters of a string
+
+### While loop:
+- It only has condition clause
+- It checks the condition before running each loop
+- It stay in the loop as long as the condition is true
+- The initialization clause should be outside and before the hail loop
+- The iteration clause should be inside the while loop statements
+- Syntax:
+  ```
+  var i = 0;
+  while (i < 10)
+  {
+      statement;
+      i++;
+  }
+  ```
+- Iteration could also be a decrement. (Start from 10 and decrement to 0)
+
+### Do-While loop
+- Similar to while loop, but it checks the condition after running each loop
+- Syntax:
+  ```
+  var i = 0;
+  do
+  {
+      statement;
+      i++;
+  } while (i < 10);
+  ```
+- Do-while loop will run the inner statement at least once 
 - Break: “break;” can be used to break out of the loop
 - Continue: “continue;” can be used to skip the rest of the current statement and go to the next loop.
 - Example:
-    ```
-    var i = 0;
-    while (i < 20)
-    {
-        if ( i % 2 ==0)
-            continue;
-        executeFunction1();
-        if ( userAbort())
-            break;
-    }
-    ``` 
+  ```
+  var i = 0;
+  while (i < 20)
+  {
+      if ( i % 2 ==0)
+          continue;
+      executeFunction1();
+      if ( userAbort())
+          break;
+  }
+  ``` 
 
-Read from and write to the console:
+### Read from and write to the console:
 - Console.WriteLine(“string content”);
 - Console.Write(“whiteout breaking line”);
 - var input = Console.ReadLine();
 - input type is string
-- Always check the input with:
-	```if (String.IsNullOrWhiteSpace(input)) {}```
+- Always check the input with: ```if (String.IsNullOrWhiteSpace(input)) {}```
 
-Random Class
+## Random Class
 - A class of System namespace
 - First you need to create an object of the class
 - Then you can get a random integer, byte array or a double between 0 and 1 by calling the Next(), NextBytes(), and NextDouble() method
@@ -421,7 +419,7 @@ Random Class
     var character = (char) (‘a’ + random.Next(0, 26));
     ```
 
-More On Arrays:
+## More On Arrays:
 - Fixed number of elements of the same type
 - They are stored in adjacent spots in memory
 - Initializing an array with all zero values:
@@ -432,22 +430,22 @@ More On Arrays:
 - Multi dimensional array:
     1. Rectangular array: number of columns in all rows are equal (a matrix)
        - Declaration: ```var matrix = new int[3, 5];```
-       - Declaration: 
-       ```
-          var matrix = new int[2, 3]
-          { {1, 2, 3},
-            {4, 5, 6} };
-       ```
+       - Declaration:
+    ```
+    var matrix = new int[2, 3]
+        { {1, 2, 3},
+        {4, 5, 6} };
+    ```
     - Access an element: ```var element = matrix[0, 2];```
     - A three-dimensional array: ```var matrix = new int[2, 3, 4];```
     2. Jagged array. Each row can have a specific number of rows.
     - Jagged array is like a single dimensional array where each element is a single dimensional array itself. 
     - Declaration:
   ```
-        var array = new int[3][];                         
-        array[0] = new int[4];
-        array[1] = new int[2];                   
-        array[2] = new int[7];
+  var array = new int[3][];                         
+  array[0] = new int[4];
+  array[1] = new int[2];                   
+  array[2] = new int[7];
   ```
 
   - Access an element: ``` var element = array[2][6]; ```
@@ -456,23 +454,23 @@ More On Arrays:
 - Array static methods: Clear(), Copy(), IndexOf(); Reverse(), Sort(), …
 - Clear() is a static method which sets elements to zero value or null for reference types
 
-List
+## List
 - A collection of elements of the same type
 - Part of System.Collection.Generic namespace
 - List has a dynamic size. You can add or remove elements to it.
 - List is a generic type (indicated by angle brackets <>)
 - Declaration:
-```
-    var numbers = new List<int>();
-    var numbers = new List<int>() {1, 2, 3, 4, 5};
-```
+  ```
+  var numbers = new List<int>();
+  var numbers = new List<int>() {1, 2, 3, 4, 5};
+  ```
 
 - Useful object methods: Add(), AddRange(); Remove(), RemoveAll(), IndexOf(), LastIndexOf(), Contains()
 - Length as object (non-static) attribute: numbers.Count
 - Example: ```numbers.AddRange(new int[3] {2, 3, 5});```
 - Clear() is a non-static method that removes all element of the list => Count = 0;
 
-DateTime
+## DateTime
 - A class in System namespace
 - Constructor has many overloads
 - Example: ```var dateTime = DateTime(2015, 05, 26);```
@@ -483,7 +481,7 @@ DateTime
 - Example: ```now.AddDays(-50).ToString(“yyyy-MM-dd HH:mm”);```
 - Google C# daytime format specifier
 
-TimeSpan
+## TimeSpan
 - Represents a length of time
 - Declaration: ```var timeSpan = new TimeSpan(1, 2, 3); // 1h 2m 3s```
 - TimeSpan constructor has many overloads
@@ -499,52 +497,56 @@ ToString();
     - Example: timeSpan.Add(TimeSpan.FromMinutes(8));
 - Convert string to TimeSpan: TimeSpan.Parse(“01:02:03”);
 
-Text & String
+## Text & String
 - string keyword (C# version) maps to String class of .Net
 - Strings are immutable
-  - Useful methods: 
-      - Formatting: ToLower(), ToUpper(), Trim()
-      - Searching for character or string: IndexOf(), LastIndexOf()
-      - Create a substring: Substring(startIndex), Substring(StartIndex, 
-  length)
-      - Replacing a character or substring: Replace(old, new)
-      - Null Checking (static): String.IsNullOrEmpty(str), 
-  String.IsNullOrWhiteSpace(str)
-      - Splitting to array of strings: str.Split(‘ ‘) 
-      - Parse to a non-compatible type: int.Parse(str), Convert.ToInt32(s)
-      - Convert to string: call ToString() method or String.Format()
-              number.ToString(); =>           “1234”		
-              number.ToString(“C”); =>     “$1,234.00” => working with currencies
-              number.ToString(“C0”); =>   “$1,234” => C0 for zero decimal point, C1 for one
-      - Other format string specifiers:
+- Useful methods: 
+    - Formatting: ToLower(), ToUpper(), Trim()
+    - Searching for character or string: IndexOf(), LastIndexOf()
+    - Create a substring: Substring(startIndex), Substring(StartIndex, length)
+    - Replacing a character or substring: Replace(old, new)
+    - Null Checking (static): String.IsNullOrEmpty(str), String.IsNullOrWhiteSpace(str)
+    - Splitting to array of strings: str.Split(‘ ‘) 
+    - Parse to a non-compatible type: int.Parse(str), Convert.ToInt32(s)
+    - Convert to string: call ToString() method or String.Format()
 
-      |    c or C    |            Currency            |      Example C1: $1,234.0                 |
-      |    :---:     |              :---:             |             :---:                         |
-      |    d or D    |             Decimal            |      Example: D6: 001234                  |
-      |    e or E    |           Exponential          |      1234.567890123 (E):  1.234568E+003   |
-      |    f or F    |           Fixed Point          |      1234.567 (F1): 1234.5                |
-      |    x or X    |           Hexadecimal          |      255 (X): FF                          |
-      - Join (static): String.Join(separatorString, stringArray)
-- StringBuilder:
-    - Part of System.Text namespace
-    - It is some kind of mutable string that returns a normal immutable string at the end
-    - Useful if there are a lot of string manipulations (since other manipulations must create a new string, each)
-    - It is not optimized for searching. None of these methods work: IndexOf(), StartsWith(), Contains(), …
-    - String manipulation object methods: Append(), Insert(), Remove(), Replace(), Clear()
-        - AppendLine() is similar to \n
-    - Initialization: var builder = new StringBuilder();
-    - Random access is possible: builder[0]
-    - Convert it to string with ToString() at the end of building process
+  |   Number   |          Method          |           String                         | 
+  |    :---:   |          :---:           |           :---:                          |
+  |    1234    |    number.ToString();    |           “1234”                         |
+  |    1234    |   number.ToString(“C”);  |     “$1,234.00” => working with currencies |
+  |    1234    |  number.ToString(“C0”);  | “$1,234” => C0 for zero decimal point, C1 for one |
 
-Note: A static method cannot call a non-static method as part of its process
+- Other format string specifiers:
 
-Procedural Programming: 
+  |    c or C    |            Currency            |      Example C1: $1,234.0                 |
+  |    :---:     |              :---:             |             :---:                         |
+  |    d or D    |             Decimal            |      Example: D6: 001234                  |
+  |    e or E    |           Exponential          |      1234.567890123 (E):  1.234568E+003   |
+  |    f or F    |           Fixed Point          |      1234.567 (F1): 1234.5                |
+  |    x or X    |           Hexadecimal          |      255 (X): FF                          |
+
+#### Join (static): String.Join(separatorString, stringArray)
+### StringBuilder:
+- Part of System.Text namespace
+- It is some kind of mutable string that returns a normal immutable string at the end
+- Useful if there are a lot of string manipulations (since other manipulations must create a new string, each)
+- It is not optimized for searching. None of these methods work: IndexOf(), StartsWith(), Contains(), …
+- String manipulation object methods: Append(), Insert(), Remove(), Replace(), Clear()
+    - AppendLine() is similar to \n
+- Initialization: ```var builder = new StringBuilder();```
+- Random access is possible: builder[0]
+- Convert it to string with ToString() at the end of building process
+
+#### Note: A static method cannot call a non-static method as part of its process
+
+### Procedural Programming: 
 - A programming paradigm based on procedure (function) calls
 - Move each logic (part of code that represent a single logic) to a separate method
 
-Object-Oriented Programming: A programming paradigm based on objects 
+### Object-Oriented Programming: 
+- A programming paradigm based on objects 
 
-Files and Directories
+## Files and Directories
 - Namespace: System.IO
 - Useful classes: File, FileInfo, Directory, DirectoryInfo, Path
 - File and FileInfo methods: create, copy, delete, move, and open files
