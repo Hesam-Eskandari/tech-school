@@ -41,38 +41,41 @@ Note: ByteCode and IL Code are independent of computer which it’s running
 ### Main method
 - CLR needs to fine a method called “Main” in a class called Program in a 
 file named Program.cs
-- Main is static and does return anything (=void)
+- Main is static and does not return anything (=void)
 - Main can accept a string array argument. (string[] args)
 
 ### Constant Variable:
-- const \<data-type>  \<identifier> = \<value>; 
+- const ```<data-type>  \<identifier> = \<value>; ```
 - Constant identifiers are either PascalCase or all CAPITAL letters.
 - Modifying a constant would give a compiler error
 
 ### Variables
-- \<data-type> \<identifier> = \<value>;
+- Syntax 1: ```<data-type> <identifier> = <value>;```
+- Syntax 2: ```var <identifier> = <value>;```
 - Variable identifiers are camelCase
 - Primitive Data types:
 
-|      C#      |      .Net       |      Bytes        |              Range               |
-|     :---:    |      :----:     |      :---:        |              :---:               |
-|     byte     |       Byte      |         1         |              0 - 255             |
-|     short    |       Int16     |         2         |         -32000 - 32000           |
-|     int      |       Int32     |         4         |          -2.1B - 2.1B            |
-|     long     |       Int64     |         8         |                …                 |
-|     float    |      Single     |         4         |   -3.4 * 10^38 - +3.4 * 10^38    |
-|    double    |      Double     |         8         |                …                 |
-|    decimal   |      Decimal    |         16        |   -7.9 * 10^28 - +7.9 * 10^28    |
-|     char     |       Char      |         2         |         Unicode Characters       |
-|     bool     |      Boolean    |         1         |            true/false            |
+|   C#    |  .Net   | Bytes |            Range            |
+|:-------:|:-------:|:-----:|:---------------------------:|
+|  byte   |  Byte   |   1   |           0 - 255           |
+|  short  |  Int16  |   2   |       -32000 - 32000        |
+|   int   |  Int32  |   4   |        -2.1B - 2.1B         |
+|  long   |  Int64  |   8   |              …              |
+|  float  | Single  |   4   | -3.4 * 10^38 - +3.4 * 10^38 |
+| double  | Double  |   8   |              …              |
+| decimal | Decimal |  16   | -7.9 * 10^28 - +7.9 * 10^28 |
+|  char   |  Char   |   2   |     Unicode Characters      |
+|  bool   | Boolean |   1   |         true/false          |
 
 #### Note: Int16 contains 16 bits or two bytes. Same logic applies to Int32 and others
 
 ### Overflowing
 - Example:
-        byte  brightness = 255;
-        brightness += 1;
-        // result would be 0 instead of 256
+  ```
+  byte brightness = 255;
+  brightness += 1;
+  // result would be 0 instead of 256
+  ```
 - C# does not have automatic check for overflowing since it may happen in 
 runtime
 - Use “checked” if you want to throw an exception if overflow happens
@@ -105,10 +108,10 @@ runtime
 - Be aware of possible data loss when casting explicitly
 - Example:
 
-|					int    				 | Convert to |       byte       |
-|                  :---:                 |   :----:   |       :---:      |
-|					259   		   	     |     ->	  |         3        |
-|	00000000 00000000 00000001 00000011  |     ->     |	    00000011     |
+|                 int                  | Convert to |     byte      |
+|:------------------------------------:|:----------:|:-------------:|
+|                 	259                 |    ->	     |       3       |
+| 	00000000 00000000 00000001 00000011 |     ->     | 	    00000011 |
 
 - Casting a character to integer will return its integer ASCII code
     - Example:
@@ -119,22 +122,22 @@ runtime
 - Example: string to integer
 - How to convert:
     1. Method one: use “Convert” class from “System” namespace
-    - Example: int  age  =  Convert.ToInt32(ageJson);
-    - Note: from the method name, it appears that Convert class is part of .Net framework
-    - Other methods of convert class:
-        - ToByte()
-        - ToInt16()
-        - ToInt32()
-        - ToInt64()
-    - Example: bool decision = Convert.ToBoolean(“true”);
-    2. Use C# Parse method:
-    - Example: int age = int.Parse(s);
-    - Parse is a C# method
+       - Example: int  age  =  Convert.ToInt32(ageJson);
+       - Note: from the method name, it appears that Convert class is part of .Net framework
+       - Other methods of convert class:
+           - ToByte()
+           - ToInt16()
+           - ToInt32()
+           - ToInt64()
+       - Example: bool decision = Convert.ToBoolean(“true”);
+    2. Method two: use C# Parse method:
+       - Example: int age = int.Parse(s);
+       - Parse is a C# method
 
 ### Operators
-- Arithmetic:  +  -  *  /  %   ++   —  
+- Arithmetic:  +  -  *  /  %   ++   --   
     - Postfix increment: int b = a++;
-        - a would be one number northern b
+        - a would be one number greater than b
     - Prefix Increment: int b = ++a;
         - a would have equal value as be
     - Same logic for decrement
@@ -157,12 +160,13 @@ runtime
 - Fields define the state of a class
 - Methods define the behaviour of the class
 - Object is an isolated instance of a class
-- Define a class: \<access-modifier> class \<identifier> {}
-    - Example: public class Person {}
+- Define a class: ```<access-modifier> class <identifier> {}```
+    - Example: ```public class Person {}```
 - Use new operator to create an object of a class
     - new operator allocates a space in memory for the object.
     - Example: create an instance (object) of the class “Person”
-        - Person p = new Person();
+        - ```Person psn = new Person();```
+        - alternative syntax: ```var psn = new Person();```
     - Note: first “Person”  is type (class name) and second “Person” is constructor call
     - CLR takes care of allocating memory and freeing it at runtime.
 
@@ -174,11 +178,11 @@ of it.
 - We cannot access the static members through objects
 - There is only one instance of static member in memory and that is in 
 class itself.
-- Static members are also called class members. (Class method, class 
+- Static members are also called class members. (class method, class 
 attribute)
 
 ### Struct
-- Declaration: \<access-modifier> struct \<identifier> {}
+- Declaration: ```<access-modifier> struct <identifier> {}```
 - Supports both fields and methods
 - Suitable for creating large number of tiny objects
 - It’s a better practice to use classes for most (99%) of applications
@@ -197,14 +201,14 @@ attribute)
     ```int[] numbers = new int[3] {1, 2, 3};```
 - Use square brackets to read and write to an entity of an array by index
 - Indexes start from 0
-- Example: ```int firstNum = numbers[0];```
-- Example: ```number[0] = 4;```
+- Read example: ```int firstNum = numbers[0];```
+- Write example: ```number[0] = 4;```
 - If declared but not initialized, entities of an array would be set to zero value of the array type
-- Zero value for numbers is zero, for string is empty string: “” and for boolean is false.
+- Zero value for numbers is zero, for string is null and for boolean is false.
 
 ### String
 - A sequence of characters
-- String => a class in .Net, string => C#
+- String (with capital s) => a class in .Net, string => C#
 - Use double quote for string literal
 - Example: ```string firstName = “John”;```
 - Concatenate strings with plus operator:
@@ -212,13 +216,13 @@ attribute)
 - Recommended: use string format instead of + operator
     - Example: ```string fullName = string.Format(“{0} {1}”, firstName, lastName});```
     - Note: placeholders 0, 1, etc are zero indexed. 
-- Strings are immutable (read only after creation)
+- Strings are immutable (read only after creation). It means that any operation on strings will generate new strings rather than changing the original ones.
 - char  ```firstChar = name[0]; // no error```
 - ```name[0] = ‘D’; // compile error ```
 - Escape characters: 
     - \n => new line
     - \t =>  tab
-    - \\ => backslash
+    - \\\ => backslash
     - \’ => single quotation
     - \” => double quotation
 - Verbatim strings: 
@@ -233,7 +237,7 @@ array as argument
 
 ## Enums:
 - A set of name / value pairs (constants)
-- Declaration: \<access-modifier> enum \<identifier> {}
+- Declaration: ```<access-modifier> enum <identifier> {}```
 - Values are integers
 - Identifier should be PascalCase. Because it’s a constant
 - Items are comma separated. Semicolon after the latest item.
@@ -241,7 +245,7 @@ array as argument
   ```
   public enum WeekDay 
   {
-  Sunday = 1,
+      Sunday = 1,
       Monday = 2,
       Tuesday = 3,
       Wednesday = 4,
@@ -250,7 +254,9 @@ array as argument
       Saturday = 7;
   }
   ```
-- If values (1, 2, …) are not gives, it will start from one by default.
+- If values (1, 2, …) are not given, it will start from zero by default.
+- The element with value of zero is the default item. If there is no zero value, then the first item is the default item.
+- To get the default item: ```default(WeekDay)```. In our example it is ```Sunday```
 - Usage: with dot notation ```var day = WeekDay.Wednesday;```
 - Note: type of day variable is WeekDay. It is cast-able to integer
 - To declare a byte Enum: ```public enum Weekday : byte {} ```
@@ -298,7 +304,7 @@ array as argument
     if (logical condition)
         statement;
     ```
-- You can have as many else if conditions as you want
+- You can have as many ```else if``` conditions as you want
 - If statements can be nested. Do your best to avoid nested if statements
 ### Switch / case syntax:
   ```
@@ -322,8 +328,9 @@ array as argument
 - You can have as many cases as you want
 - If break is not specified all statements after the first matching 
 condition will be run
-- Switch / case is equivalent to if/else if/else statement
+- Switch / case is equivalent to if / else if / else statement
 - One use case of switch / case is matching a value with an enum.
+- Default will be run only if no case condition is satisfied.
 
 ## Iteration statements
 ### For loop:
@@ -351,15 +358,14 @@ condition will be run
     }
     ```
       
-  - If the statement is only one line, then you can omit the curly 
-    braces
-        - You can run a foreach loop over characters of a string
+  - If the statement is only one line, then you can omit the curly braces
+  - You can run a foreach loop over characters of a string
 
 ### While loop:
 - It only has condition clause
 - It checks the condition before running each loop
-- It stay in the loop as long as the condition is true
-- The initialization clause should be outside and before the hail loop
+- It stays in the loop as long as the condition is true
+- The initialization clause should be outside and before the while loop
 - The iteration clause should be inside the while loop statements
 - Syntax:
   ```
@@ -371,6 +377,7 @@ condition will be run
   }
   ```
 - Iteration could also be a decrement. (Start from 10 and decrement to 0)
+- If no increment (iteration clause) or a break provided, the loop will never end. It is called an infinite loop.
 
 ### Do-While loop
 - Similar to while loop, but it checks the condition after running each loop
@@ -391,17 +398,17 @@ condition will be run
   var i = 0;
   while (i < 20)
   {
-      if ( i % 2 ==0)
+      if (i % 2 ==0)
           continue;
       executeFunction1();
-      if ( userAbort())
+      if (userAbort())
           break;
   }
   ``` 
 
 ### Read from and write to the console:
 - Console.WriteLine(“string content”);
-- Console.Write(“whiteout breaking line”);
+- Console.Write(“without breaking the line”);
 - var input = Console.ReadLine();
 - input type is string
 - Always check the input with: ```if (String.IsNullOrWhiteSpace(input)) {}```
@@ -421,7 +428,7 @@ condition will be run
 
 ## More On Arrays:
 - Fixed number of elements of the same type
-- They are stored in adjacent spots in memory
+- They are stored in adjacent spots in memory. This would provide random access in constant time.
 - Initializing an array with all zero values:
     - ```var numbers = new int[20];```
 - Initializing an array if values are known at the time of initialization:
@@ -438,7 +445,7 @@ condition will be run
     ```
     - Access an element: ```var element = matrix[0, 2];```
     - A three-dimensional array: ```var matrix = new int[2, 3, 4];```
-    2. Jagged array. Each row can have a specific number of rows.
+    2. Jagged array. Each row can have an arbitrary number of rows.
     - Jagged array is like a single dimensional array where each element is a single dimensional array itself. 
     - Declaration:
   ```
@@ -450,7 +457,7 @@ condition will be run
 
   - Access an element: ``` var element = array[2][6]; ```
 - CLR in C# is optimized for single dimensional arrays. Then Jagged arrays are faster that rectangular arrays.
-- Array object properties: Length
+- Array object properties: Length, 
 - Array static methods: Clear(), Copy(), IndexOf(); Reverse(), Sort(), …
 - Clear() is a static method which sets elements to zero value or null for reference types
 
@@ -468,6 +475,7 @@ condition will be run
 - Useful object methods: Add(), AddRange(); Remove(), RemoveAll(), IndexOf(), LastIndexOf(), Contains()
 - Length as object (non-static) attribute: numbers.Count
 - Example: ```numbers.AddRange(new int[3] {2, 3, 5});```
+- AddRange() can accept an array or a list as input
 - Clear() is a non-static method that removes all element of the list => Count = 0;
 
 ## DateTime
@@ -477,7 +485,7 @@ condition will be run
 - Get current date time: var now = DateTime.Now => static property that create an object
 - Object properties: Hour, Minute, …
 - DateTime objects are immutable. You can use Add methods to add days, hours, etc to a date time object (use negative numbers to go to past)
-- Object methods: ToLongDateString(), ToShortDateString(), ToLongTimeString(), ToShortTimeString(), ToString() // shirt date + long time, ToString(\<format-specifier>)
+- Object methods: ToLongDateString(), ToShortDateString(), ToLongTimeString(), ToShortTimeString(), ToString() // short date + long time, ToString(\<format-specifier>)
 - Example: ```now.AddDays(-50).ToString(“yyyy-MM-dd HH:mm”);```
 - Google C# daytime format specifier
 
@@ -505,25 +513,25 @@ ToString();
     - Searching for character or string: IndexOf(), LastIndexOf()
     - Create a substring: Substring(startIndex), Substring(StartIndex, length)
     - Replacing a character or substring: Replace(old, new)
-    - Null Checking (static): String.IsNullOrEmpty(str), String.IsNullOrWhiteSpace(str)
+    - Null Checking (static): String.IsNullOrEmpty(str), String.IsNullOrWhiteSpace(str). The second method checks for null, empty and whitespace.
     - Splitting to array of strings: str.Split(‘ ‘) 
     - Parse to a non-compatible type: int.Parse(str), Convert.ToInt32(s)
     - Convert to string: call ToString() method or String.Format()
 
-  |   Number   |          Method          |           String                         | 
-  |    :---:   |          :---:           |           :---:                          |
-  |    1234    |    number.ToString();    |           “1234”                         |
-  |    1234    |   number.ToString(“C”);  |     “$1,234.00” => working with currencies |
-  |    1234    |  number.ToString(“C0”);  | “$1,234” => C0 for zero decimal point, C1 for one |
+| Number |         Method         |                      String                       | 
+|:------:|:----------------------:|:-------------------------------------------------:|
+|  1234  |   number.ToString();   |                      “1234”                       |
+|  1234  | number.ToString(“C”);  |      “$1,234.00” => working with currencies       |
+|  1234  | number.ToString(“C0”); | “$1,234” => C0 for zero decimal point, C1 for one |
 
 - Other format string specifiers:
 
-  |    c or C    |            Currency            |      Example C1: $1,234.0                 |
-  |    :---:     |              :---:             |             :---:                         |
-  |    d or D    |             Decimal            |      Example: D6: 001234                  |
-  |    e or E    |           Exponential          |      1234.567890123 (E):  1.234568E+003   |
-  |    f or F    |           Fixed Point          |      1234.567 (F1): 1234.5                |
-  |    x or X    |           Hexadecimal          |      255 (X): FF                          |
+| c or C |  Currency   |        Example C1: $1,234.0        |
+|:------:|:-----------:|:----------------------------------:|
+ | d or D |   Decimal   |        Example: D6: 001234         |
+ | e or E | Exponential | 1234.567890123 (E):  1.234568E+003 |
+ | f or F | Fixed Point |       1234.567 (F1): 1234.5        |
+ | x or X | Hexadecimal |            255 (X): FF             |
 
 #### Join (static): String.Join(separatorString, stringArray)
 ### StringBuilder:
@@ -549,13 +557,12 @@ ToString();
 ## Files and Directories
 - Namespace: System.IO
 - Useful classes: File, FileInfo, Directory, DirectoryInfo, Path
-- File and FileInfo methods: create, copy, delete, move, and open files
+- File and FileInfo methods: Create(), Copy(), Delete(), Exists(), GetAttributes(), Move(), ReadAllText()
 - FileInfo => instance methods, File => static methods
 - Small number of operations => example: get attribute of some file => use static methods of File
 - Every time a static method is used, OS checks access to the file
 - Static methods are not efficient for large amount of operations => use FileInfo for it
 - Security and access checks are only done once creating an object of FileInfo object
-- File & FileInfo Methods: Create(), Copy(), Delete(), Exists(), GetAttributes(), Move(), ReadAllText()
 - Directory provides static methods, directory info provides instance methods
 - Directory and DirectoryInfo methods: CreateDirectory(), Delete(), Exists(), GetCurrentDirectory(), GetFiles(), Move(), GetLogicalDrives()
 - Path class: to work with strings that contains path of a file or directory
