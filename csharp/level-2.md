@@ -282,4 +282,4 @@
 - If there is any use case to access or modify a private field from outside, there can be public getter and setter methods.
 - Setter methods receive an input parameter and should validate it before assign it to the private field
 - A convention: private fields should be _camelCase starting with an underscore.
-- In OOP fields are private concepts, and they should be accessed throw public methods.
+- In OOP fields are private concepts, and they should be accessed through public methods.
