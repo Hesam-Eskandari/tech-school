@@ -1,18 +1,46 @@
 # C# Intermediate
 
-## Application
+- [Application](#application)
+- [Class](#class)
+  - [Anatomy Of Classes](#anatomy-of-classes)
+  - [Instantiating A Class](#creating-an-object-of-instantiating-a-class)
+  - [Object Method VS Static Method](#object-method-vs-static-method)
+  - [Constructor](#constructor)
+  - [Method Overloading](#method-overloading)
+  - [Object Initialization](#object-initialization)
+- [Defensive Programming](#defensive-programming)
+  - [Error Handling](#error-handling)
+- [Method Parameter Modifiers](#method-parameter-modifiers)
+  - [Params Modifier](#params-modifier)
+  - [Out Modifier](#out-modifier)
+  - [Ref Modifier](#ref-modifier)
+  - [In Modifier](#in-modifier)
+- [Fields](#fields)
+  - [Readonly](#readonly)
+- [Access Modifiers](#access-modifiers)
+- [Properties](#properties)
+- [Indexer](#indexer)
+  - [Dictionary](#dictionary)
+  - [Indexer Class](#indexer-class)
+- [Association Between Classes](#association-between-classes)
+
+<a id='application'></a>
+## Application 
+
 1. Presentation (frontend)
 2. Business Logic / Domain
 3. Data Access / Persistence
 
-## Class
+<a id='class'></a>
+## Class 
 
 - A building block of a software application
 - Naming convention: PascalCase
 - Declaration: `<access-modifier> class <identifier> {}`
   - Example: `public class Person {}`
 
-### Anatomy Of Classes
+<a id='anatomy-of-classes'></a>
+### Anatomy Of Classes 
 1. Data or Fields 
 2. Behaviour or Methods
 
@@ -23,6 +51,7 @@
 - Fields and methods naming convention: PascalCase
 - Note: if return is empty (no return) then the return type of method should be set to void.
 
+<a id='creating-an-object-of-instantiating-a-class'></a>
 ### Creating An Object of (Instantiating) A Class
 
 - Syntax 1: `<class-name> <object-name> = new <constructor> (<arguments>);`
@@ -30,6 +59,7 @@
 - Syntax 2: `var <object-name> = new <constructor> (<arguments>);`
   - Example: `var file = FileInfo();`
 
+<a id='object-method-vs-static-method'></a>
 ### Object Method VS Static Method
 
 - Object (instance) method is accessible through only an instance of a class
@@ -46,6 +76,7 @@
 - Use static keyword to declare a static method.
 - Use static method to create an object of the same class or its parent class
 
+<a id='constructor'></a>
 ### Constructor
 
 - It's a method that is called when an instance of a class is about to be created
@@ -74,6 +105,7 @@
 - If a constructor is not provided, C# assumes a default constructor where all fields would set to their zero values.
 - If any constructor overload is defined, C# compiler would not consider any default constructor anymore.
 
+<a id='method-overloading'></a>
 ### Method Overloading
 - Method signature: a method signature is combination of its name, number and type of its arguments
 - You can use the same method name but change any other factor of its signature. 
@@ -109,6 +141,7 @@
     - If possible: Define a constructor with minimum required args and add other args with default value
     - Avoid creating overloads for different input combinations
 
+<a id='object-initialization'></a>
 ### Object Initialization
 
 - Example: `var person = new Person { name = "Jane", age = "35"};`
@@ -119,11 +152,13 @@
   person.name = "Jane";
   person.age = 35;
   ```
-  
+
+<a id='defensive-programming'></a>
 ## Defensive Programming 
 - Defensive programming is a good practice as it allows you to quickly react to any unexpected situations
 - It is both a philosophy and a collection of techniques that can be used to allow a project to reach the finish line, even if you encounter a few unexpected turns in the road.
 
+<a id='error-handling'></a>
 ### Error Handling
 - Check for edge cases and handle the possible errors
 - Example: what would happen if a null object is passed to the method Move()?
@@ -176,7 +211,9 @@
   - More on exception handling in the advanced section.
 - Defensive programming improves the robustness of the code.
 
+<a id='method-parameter-modifiers'></a>
 ## Method Parameter Modifiers
+<a id='params-modifier'></a>
 ### Params Modifier
 - To pass an arbitrary number of arguments of the same type to a method
 - Example:
@@ -210,7 +247,8 @@
     return sum;
   }
   ```
-  
+
+<a id='out-modifier'></a> 
 ### Out Modifier
 - A method can take a (reference of a ) parameter and assign some value to it.
 - The passed argument should not be initialized in the caller method. It must be initialized inside the method that accepts it as parameter.
@@ -243,6 +281,7 @@
   var doesExist = GetCacheValue (cacheKey, out string cacheValue);
   ```
 
+<a id='ref-modifier'></a>
 ### Ref Modifier
 - Ref modifier (`ref`) allows to pass an argument to a method by its reference.
 - It is similar to out modifier, except that the parameter should be initialized in the caller method.
@@ -250,6 +289,7 @@
 - The ref keyword cannot pass a property
 - Note: class objects are passed by reference by default.
 
+<a id='in-modifier'></a>
 ### In Modifier
 - Pass an argument by reference and as a constant. Parameter passed as `in` cannot be modified.
 - The `in` keyword must be used in parameter, but it is optional to be used in the argument.
@@ -257,12 +297,14 @@
 - The in parameter modifier is available in C# 7.2 and later. Previous versions generate compiler error CS8107.
 - Methods cannot be overloaded if the only difference is that one method takes a ref or out argument and the other takes an in argument.
 
+<a id='fields'></a>
 ## Fields
 - There are two practices to initialize fields that do not get any value from the constructor:
   1. Have a default constructor to initialize all your fields that do not accept values from the constructor in the default constructor and use delegation in other constructors
   2. Initialize those fields where declaring them outside the constructor (in the class body).
   - The second approach seems cleaner. Whichever approach that you choose, make it consistent throughout your application.
 
+<a id='readonly'></a>
 ### Readonly
 - Use `readonly` keyword when declaring a field to make sure it never gets reassigned.
 - It can help not to lose the value of a variable after first initialization.
@@ -271,6 +313,7 @@
   - You potentially do not want to lose the items added to the cart at different part of the application.
   - Items can be added or removed from cart but the cart itself cannot be reassigned.
 
+<a id='access-modifiers'></a>
 ## Access Modifiers
 - Access modifiers help with encapsulation (information hiding).
 - Access modifiers define the level of access of a class and its methods and fields.
@@ -283,3 +326,130 @@
 - Setter methods receive an input parameter and should validate it before assign it to the private field
 - A convention: private fields should be _camelCase starting with an underscore.
 - In OOP fields are private concepts, and they should be accessed through public methods.
+
+<a id='properties'></a>
+## Properties
+- Property is a class member that encapsulates a getter/setter for accessing a field.
+- Reason to use a property: to create getters and setters with less code.
+- Properties are declared public. Compiler creates private fields internally for each property.
+- Properties can have getter and setter to provide access to the private fields' values.
+- How it is written traditionally:
+  ```
+  public class Person
+  {
+    private DateTime _birthdate;
+  
+    private void SetBirthdate(DateTime birthdate)
+    {
+      this._birthdate = birthdate;
+    }
+    
+    public DateTime GetBirthdate()
+    {
+      return _birthdate;
+    }
+  }
+  ```
+- How to use auto-implemented properties instead:
+  ```
+  public class Person
+  {
+    public DateTime Birthdate { get; private set; }
+  }
+  // in the caller function:
+  var person = Person();
+  person.Birthdate = DateTime.Now; // error: it cannot be set from outside the class
+  ```
+- How it looks like internally when using properties:
+  ```
+  public class Person
+  {
+    private DateTime _birthdate;
+
+    public DateTime Birthdate
+    {
+      get { return _birthdate; }
+      private set { _birthdate = value; }
+    }
+  } 
+  ```
+- Best practice: order of properties and methods:
+  1. Auto-implemented properties
+  2. Constructor(s)
+  3. Properties with getter / setter body
+  4. rest of the class (methods, etc)
+
+- Example:
+  ```
+  public class Person
+  {
+    public DateTime Birthdate { get; private set; } // auto-implemented property
+    public string Name { get; set; }
+  
+    public Person(DateTime birthdate, string name)
+    {
+      Name = name;
+      Birthdate = birthdate;
+    }
+  
+    public int Age // no setter, it should be calculated based on Birthdate
+    {
+      get
+      {
+        var ageTimeSpan = DateTime.Today - Birthdate;
+        return ageTimeSpan.Days/365;
+      {
+    }
+  }
+  ```
+
+<a id='indexer'></a>
+## Indexer
+- Indexer is a class that can be used as dictionary
+- Use case: adding custom function to dictionary. Such as expiry for a key.
+
+<a id='dictionary'></a>
+### Dictionary
+- It maps a key of any type to a value of any type
+- It provides access to a value in constant time given its corresponding key.
+- Arrays provide access by index, dictionaries provide access by key.
+- Declaration example: `var cache = new Dictionary<string, string>();`
+- Dictionary has generic type
+- It is in `System.Collections.Generic` namespace.
+- To set a key/value pair: `cache[key] = value`
+- To get the value of a key: `cache.GetValue(key)`
+- The `GetValue()` method raise an exception if key does not exist
+- To get the value if key exists: `cache.TryGetValue(key, out string value);`
+- The `TryGetValue()` returns a boolean that indicates if the key existed.
+
+<a id='indexer-class'></a>
+### Indexer Class
+- Indexer can extend the dictionary function for a particular purpose.
+- Example:
+  ```
+  public class Cookie
+  {
+    private readonly Dictionary<string, string> _dictionary;
+    public DateTime Expirey { get; private set; }
+    
+    public Cookie() 
+    {
+      _dictionary = new Dictionary<string, string>();
+    }
+  
+    public string this[string key] // indexer property 
+    {
+      get 
+      { 
+         if (_dictionary.TryGetValue(key, out tring value))
+             return value;
+         // throw exception or return null here
+      }
+      set { _dictionary[key] = value; }
+    }
+  // logic for expiry, etc here
+  }
+  ```
+
+<a id='association-between-classes'></a>
+## Association Between Classes
