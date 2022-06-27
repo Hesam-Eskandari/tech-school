@@ -453,3 +453,36 @@
 
 <a id='association-between-classes'></a>
 ## Association Between Classes
+
+<a id='class-coupling'></a>
+### Class Coupling
+
+#### Tightly Coupled
+- Classes are dependent to each other throughout the application
+- Changing one class requires making changes in all its dependent classes.
+- It can cause a chain of changes.
+
+#### Loosely Coupled
+- An ideal application
+- Changing a class is isolated
+- To design a loose coupling application, three concepts should be considered.
+  1. Encapsulation (information hiding): already covered
+  2. The relationship between classes: will be covered here
+  3. Interfaces: will be discussed later
+
+### Classes Relationships
+1. Inheritance
+2. Composition
+- Composition relationships usually result in less coupling.
+
+## Inheritance Basics
+- Parent-child relationship between classes.
+- Child can reuse codes of parents (inherit code from parent).
+- Also known as **Is-A** relationship. A car (chile) is a vehicle (parent).
+- Benefits:
+  1. Code reuse
+  2. Polymorphic behaviour
+
+- UML Representation
+
+  <img alt="uml-inheritance-01" src="images/uml-inheritance-01.png" width=600>
