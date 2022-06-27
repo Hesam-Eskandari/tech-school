@@ -317,8 +317,8 @@
 ## Access Modifiers
 - Access modifiers help with encapsulation (information hiding).
 - Access modifiers define the level of access of a class and its methods and fields.
-1. Public (class, method, field): can be accessed from anywhere (other classes)
-2. Private (method, field): can be accessed inside the host class only.
+1. Public: can be accessed from anywhere (other classes)
+2. Private: can be accessed inside the host class only. A class can be private if it is nested inside another class.
 3. Protected: will be explained later
 4. Internal: will be explained later
 5. Protected Internal: will be explained later
@@ -457,11 +457,13 @@
 <a id='class-coupling'></a>
 ### Class Coupling
 
+<a id='tightly-coupled'></a>
 #### Tightly Coupled
 - Classes are dependent to each other throughout the application
 - Changing one class requires making changes in all its dependent classes.
 - It can cause a chain of changes.
 
+<a id='loosely-coupled'></a>
 #### Loosely Coupled
 - An ideal application
 - Changing a class is isolated
@@ -470,19 +472,81 @@
   2. The relationship between classes: will be covered here
   3. Interfaces: will be discussed later
 
+<a id='classes-relationships'></a>
 ### Classes Relationships
 1. Inheritance
 2. Composition
 - Composition relationships usually result in less coupling.
 
-## Inheritance Basics
+<a id='inheritance'></a>
+## Inheritance
 - Parent-child relationship between classes.
 - Child can reuse codes of parents (inherit code from parent).
 - Also known as **Is-A** relationship. A car (chile) is a vehicle (parent).
+- In C#, a class can have only one parent.
 - Benefits:
   1. Code reuse
   2. Polymorphic behaviour
+- You should call the constructor of the parent (base) class in the constructor of its children.
+- Constructor of the base class is always executed first.
+- If base() is not called, the default parent constructor will be called. If parent class has no default (parameterless) constructor, compiler would complain.
+- Example:
+  ```
+  public class Person
+  {
+    private string _id;
+  
+    public Person(string id)
+    {
+      _id = id;
+    }
+  }
+  
+  public class Student : Person
+  {
+    public string Name;
+  
+    public Student(string id, string name) : base(id)
+    {
+      Name = name;
+    }
+  }
+  ```
 
+- UML Representation 
+  - Person is the parent (base or super) class and Student and Professor are its two children (derived or subclasses) classes.
+
+    <img alt="uml-inheritance-01" src="images/uml-inheritance-01.png" width=600>
+
+<a id='composition'></a>
+## Composition
+- Composition allows a class contains other classes
+- It is also known as **Has-A** relationship. A car has an engine.
+- Benefits:
+  1. Code reuse
+  2. Flexibility
+  3. A means to loose-coupling
+- Example: create a logger class and add it as a private field in any class
 - UML Representation
 
-  <img alt="uml-inheritance-01" src="images/uml-inheritance-01.png" width=600>
+  <img alt="uml-inheritance-01" src="images/uml-composition-01.png" width=600>
+
+<a id='more-on-access-modifiers'></a>
+## More On Access Modifiers
+
+<a id='protected'></a>
+### Protected
+- A protected field, method, or class is only accessible through the class itself or its children.
+- Protected modifier breaks encapsulation. Try to avoid it as much as possible.
+- A class can be protected only if it is nested inside another class
+
+<a id='internal'></a>
+### Internal
+- An internal class, field, or method is accessible in all classes of current assembly.
+- it makes sense to use internal instead of public in many cases
+
+<a id='protected-internal'></a>
+### Protected Internal
+- A protected internal class, field, or method is accessible through same assembly or the children of the class
+- A class can be protected internal if it is nested inside another class.
+
