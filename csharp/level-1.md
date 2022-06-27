@@ -1,47 +1,50 @@
 # C# Basics
-- [.Net Components](#dot-net-components)
+- [.Net Ingredients](#net-ingredients)
 - [CLR](#clr)
-- [Namespace](#namespace)
-- [Assembly](#assembly)
+- [Namespace](#namespaces)
+- [Assembly](#assembly-dll-or-exe)
 - [Application](#application)
 - [System](#system)
 - [Main Method](#main-method)
 - [Constant Variables](#constant-variables)
 - [Variables](#variables)
 - [Overflowing](#overflowing)
-- [Implicit Conversion](#implicit-conversion)
-- [Explicit Type Conversion (Casting)](#explicit-conversion)
-- [Non-compatible Types](#non-compatible-conversion)
+- [Conversion](#conversion)
+  - [Implicit Conversion](#implicit-conversion)
+  - [Explicit Type Conversion (Casting)](#explicit-type-conversion-casting)
+  - [Non-compatible Types](#non-compatible-types)
 - [Operators](#operators)
 - [Comments](#comments)
 - [Class](#class)
 - [Struct](#struct)
-- [Array: a non-primitive type](#array)
-- [String](#string-basics)
+- [Array](#array)
+- [String](#string)
   - [Format String](#format-string)
 - [Enums](#enums)
 - [Structures VS Classes](#structures-vs-classes)
-- [Condition statements](#condition-statements)
-  - [If Condition](#if-condition)
-  - [Switch / case](#switch-case)
-- [Iteration statements](#iteration)
+- [Conditional Statements](#conditional-statements)
+  - [If Statement](#if-statement-syntax)
+  - [Switch / case](#switch--case-syntax)
+- [Iteration Statements](#iteration-statements)
   - [For Loop](#for-loop)
   - [Foreach Loop](#foreach-loop)
   - [While Loop](#while-loop)
   - [Do While Loop](#do-while-loop)
-- [Read from and write to the console](#console-read-write)
+- [Read from and write to the console](#read-from-and-write-to-the-console)
 - [Random Class](#random-class)
-- [More On Arrays](#arrays-2)
+- [More On Arrays](#more-on-arrays)
 - [List](#list)
 - [DateTime](#datetime)
 - [TimeSpan](#timespan)
-- [Text & String](#text-and-string)
-- [StringBuilder](#string-builder)
-- [Procedural Programming](#procedural-p)
-- [Object-Oriented Programming](#oop)
+- [Text & String](#text--string)
+- [StringBuilder](#stringbuilder)
+- [Procedural Programming](#procedural-programming)
+- [Object-Oriented Programming](#object-oriented-programming-oop)
 - [Files and Directories](#files-and-directories)
 
-.Net is made of two components: <a id="dot-net-components"/>
+<a id="dot-net-components"></a>
+## .Net Ingredients
+.Net is made of two components:
 1. CLR (Common Language Runtime)
 2. Class Library (for building applications)
 
@@ -54,24 +57,29 @@ In C#: code -> compiler -> IL Code (intermediate language)
 
 Note: ByteCode and IL Code are independent of computer which it’s running
 
-### CLR <a id="clr"/>
+<a id="clr"></a>
+### CLR 
 - Translates IL code to native code
 - It is in fact an application itself that you install on your machine
 - The process of translation is called Just-in-time Compilation (JIT)
 
-###  Namespaces <a id='namespace'/>
+<a id='namespace'></a>
+###  Namespaces 
 - A container for related classes
 
-### Assembly (DLL or EXE) <a id='assembly'/>
+<a id='assembly-dll-or-exe'></a>
+### Assembly (DLL or EXE)
 - A container for related namespaces
 - It is a file on the disc
 - It can be DLL (dynamically linked library)
 - It can be an executable
 
-### Application <a id='application'/>
+<a id='application'></a>
+### Application
 - A container of one or multiple assemblies
 
-### System <a id='system'/>
+<a id='system'></a>
+### System 
 - A namespace in .Net framework
 - All utility classes and primitive types are there
 - System.Collections.Generics: library to work with lists, collections, and so on
@@ -79,18 +87,21 @@ Note: ByteCode and IL Code are independent of computer which it’s running
 - System.Test is used to work with text, coding, etc.
 - System.Threading to build multithreading applications
 
-### Main method <a id='main-method'/>
+<a id='main-method'></a>
+### Main method 
 - CLR needs to fine a method called “Main” in a class called Program in a 
 file named Program.cs
 - Main is static and does not return anything (=void)
 - Main can accept a string array argument. (string[] args)
 
-### Constant Variables <a id='constant-variables'/>
+<a id='constant-variables'></a>
+### Constant Variables 
 - const ```<data-type>  \<identifier> = \<value>; ```
 - Constant identifiers are either PascalCase or all CAPITAL letters.
 - Modifying a constant would give a compiler error
 
-### Variables <a id='variables'/>
+<a id='variables'></a>
+### Variables 
 - Syntax 1: ```<data-type> <identifier> = <value>;```
 - Syntax 2: ```var <identifier> = <value>;```
 - Variable identifiers are camelCase
@@ -110,7 +121,8 @@ file named Program.cs
 
 #### Note: Int16 contains 16 bits or two bytes. Same logic applies to Int32 and others
 
-### Overflowing <a id='overflowing'/>
+<a id='overflowing'></a>
+### Overflowing 
 - Example:
   ```
   byte brightness = 255;
@@ -126,14 +138,19 @@ runtime
         { }
     ```
 
-### Implicit Conversion <a id='implicit-conversion'/>
+<a id='conversion'></a>
+## Conversion
+
+<a id='implicit-conversion'></a>
+### Implicit Conversion 
 - Convert without asking
 - Possible only the byte size is increasing
 - It won't implicitly convert if there is a chance of data loss
 - Example assignment of byte to int
 - Example: assignment of int to double
 
-### Explicit Type Conversion (Casting) <a id='explicit-conversion'/>
+<a id='explicit-type-conversion-casting'></a>
+### Explicit Type Conversion (Casting) 
 - Use it only if you are sure there will be no data loss
 - If not explicitly asked => compiler error
 - For example, we expect age to be less than 255. Then we can explicitly convert it from int to byte.
@@ -150,7 +167,8 @@ runtime
     - Example:
 		var code = (int) ’a’;
 
-### Non-compatible Types <a id='non-compatible-conversion'/>
+<a id='non-compatible-types'></a>
+### Non-compatible Types 
 - Explicit casting won’t work for them
 - Example: string to integer
 - How to convert:
@@ -167,7 +185,8 @@ runtime
        - Example: int age = int.Parse(s);
        - Parse is a C# method
 
-### Operators <a id='operators'/>
+<a id='operators'></a>
+### Operators 
 - Arithmetic:  +  -  *  /  %   ++   --   
     - Postfix increment: int b = a++;
         - a would be one number greater than b
@@ -180,14 +199,16 @@ runtime
     - Note: avoid nested not operator: !(a >= b) => use instead: (a < b)
 - Bitwise (should be avoided):  &  |   
 
-### Comments <a id='comments'/>
+<a id='comments'></a>
+### Comments 
 - Single line: anything after // in the line
 - Multiline: /* all lines and words between these two signs */
 - Do not explain what the code is doing in comments
 - Only explain whys, hows, constraints and not whats.
 - Comments do not get compiled. They will be skipped by the compiler. 
 
-### Class <a id='class'/>
+<a id='class'></a>
+### Class
 - A blueprint from which we create objects
 - Made of fields (attributes) and methods (functions)
 - Fields define the state of a class
@@ -203,7 +224,8 @@ runtime
     - Note: first “Person”  is type (class name) and second “Person” is constructor call
     - CLR takes care of allocating memory and freeing it at runtime.
 
-### Static <a id='static'/>
+<a id='static'></a>
+### Static 
 - A static member (method or field) of a class can be accessed through 
 class itself
 - There is no need to create an object of class to access a static member 
@@ -214,14 +236,17 @@ class itself.
 - Static members are also called class members. (class method, class 
 attribute)
 
-### Struct <a id='struct'/>
+<a id='struct'></a>
+### Struct 
 - Declaration: ```<access-modifier> struct <identifier> {}```
 - Supports both fields and methods
 - Suitable for creating large number of tiny objects
 - It’s a better practice to use classes for most (99%) of applications
 - Class objects are reference based but struct objects are value based
 
-### Array: a non-primitive type <a id='array'/>
+<a id='array'></a>
+### Array
+- Array is a non-primitive type
 - An array is a data structure to store a collection of values of the same type
 - Arrays have fix size. You need to specify the size in declaration, and it cannot be changed.
 - You need to allocate memory for arrays when declaring them. Use new operator for it.
@@ -239,7 +264,8 @@ attribute)
 - If declared but not initialized, entities of an array would be set to zero value of the array type
 - Zero value for numbers is zero, for string is null and for boolean is false.
 
-### String <a id='string-basics'/>
+<a id='string'></a>
+### String 
 - A sequence of characters
 - String (with capital s) => a class in .Net, string => C#
 - Use double quote for string literal
@@ -268,13 +294,15 @@ attribute)
 array as argument
     - Example: ```var name = new string(array);```
 
-#### Format string <a id='format-string'/>
+<a id='format-string'></a>
+#### Format string 
   ```
   console.WriteLine(“{0} {1}”, byte.MinValue, byte.MaxValue);
   console.WriteLine(“{0} {1}”, float.MinValue, float.MaxValue);
   ```
 
-## Enums <a id='enums'/>
+<a id='enums'></a>
+## Enums 
 - A set of name / value pairs (constants)
 - Declaration: ```<access-modifier> enum <identifier> {}```
 - Values are integers
@@ -305,7 +333,8 @@ array as argument
 - Enum class is in System namespace
 - ```Enum.Parse()``` returns an object type that can be cast to WeekDay
 
-## Structures VS Classes <a id='structures-vs-classes'/>
+<a id='structures-vs-classes'></a>
+## Structures VS Classes 
 - Primitive types and custom structs are structures
 - Arrays, strings and custom classes are classes
 - Structures are value types. Classes are reference types 
@@ -321,8 +350,11 @@ array as argument
 - Passing a value type variable to a function as argument would copy its value to a new variable in that function scope. It will end up with two variables with the same value but two different addresses in stack with two different scopes. (Even if they have the same name)
 - Passing a reference type object to a function as argument would copy its address to a new variable in that function scope. Both variables in two scopes (inside and outside if the function) will point to the same space in heap (value). Changing object properties in either scope would change the value in the same heap memory space.
 
-## Condition statements <a id='condition-statements'/>
-### If statement syntax <a id='if-condition'/> 
+<a id='conditional-statements'></a>
+## Conditional Statements 
+
+<a id='if-statement-syntax'></a>
+### If Statement Syntax 
   ```
   if (logical condition)
   {
@@ -345,7 +377,9 @@ array as argument
     ```
 - You can have as many ```else if``` conditions as you want
 - If statements can be nested. Do your best to avoid nested if statements
-### Switch / case syntax <a id='switch-case'/>
+
+<a id='switch--case-syntax'></a>
+### Switch / case syntax 
   ```
   switch(variableName)
   {
@@ -371,8 +405,11 @@ condition will be run
 - One use case of switch / case is matching a value with an enum.
 - Default will be run only if no case condition is satisfied.
 
-## Iteration statements <a id='iteration'/>
-### For loop <a id='for-loop'/>
+<a id='iteration-statements'></a>
+## Iteration Statements 
+
+<a id='for-loop'></a>
+### For loop 
 - Suitable to work with indices. 
 - It loops over until a logical statement is correct
 - Syntax:
@@ -387,7 +424,9 @@ condition will be run
   - The third part (i++) is called the iteration clause
   - If the statement is only one line, then you can omit the curly braces
   - Iteration could also be a decrement. (Start from 20 and decrement to 0)
-### Foreach loop <a id='foreach-loop'/>
+
+<a id='foreach-loop'></a>
+### Foreach loop 
   - To iterate over elements of an enumerable object
   - Syntax: assume numbers is an array of numbers
     ```
@@ -400,7 +439,8 @@ condition will be run
   - If the statement is only one line, then you can omit the curly braces
   - You can run a foreach loop over characters of a string
 
-### While loop <a id='while-loop'/>
+<a id='while-loop'></a>
+### While loop 
 - It only has condition clause
 - It checks the condition before running each loop
 - It stays in the loop as long as the condition is true
@@ -418,7 +458,8 @@ condition will be run
 - Iteration could also be a decrement. (Start from 10 and decrement to 0)
 - If no increment (iteration clause) or a break provided, the loop will never end. It is called an infinite loop.
 
-### Do-While loop <a id='do-while-loop'/>
+<a id='do-while-loop'></a>
+### Do-While loop 
 - Similar to while loop, but it checks the condition after running each loop
 - Syntax:
   ```
@@ -445,14 +486,16 @@ condition will be run
   }
   ``` 
 
-### Read from and write to the console <a id='console-read-write'/>
+<a id='read-from-and-write-to-the-console'></a>
+### Read from and write to the console 
 - Console.WriteLine(“string content”);
 - Console.Write(“without breaking the line”);
 - var input = Console.ReadLine();
 - input type is string
 - Always check the input with: ```if (String.IsNullOrWhiteSpace(input)) {}```
 
-## Random Class <a id='random-class'/>
+<a id='random-class'></a>
+## Random Class 
 - A class of System namespace
 - First you need to create an object of the class
 - Then you can get a random integer, byte array or a double between 0 and 1 by calling the Next(), NextBytes(), and NextDouble() method
@@ -465,7 +508,8 @@ condition will be run
     var character = (char) (‘a’ + random.Next(0, 26));
     ```
 
-## More On Arrays <a id='arrays-2'/>
+<a id='more-on-arrays'></a>
+## More On Arrays 
 - Fixed number of elements of the same type
 - They are stored in adjacent spots in memory. This would provide random access in constant time.
 - Initializing an array with all zero values:
@@ -500,7 +544,8 @@ condition will be run
 - Array static methods: Clear(), Copy(), IndexOf(); Reverse(), Sort(), …
 - Clear() is a static method which sets elements to zero value or null for reference types
 
-## List <a id='list'/>
+<a id='list'></a>
+## List 
 - A collection of elements of the same type
 - Part of System.Collection.Generic namespace
 - List has a dynamic size. You can add or remove elements to it.
@@ -517,7 +562,8 @@ condition will be run
 - AddRange() can accept an array or a list as input
 - Clear() is a non-static method that removes all element of the list => Count = 0;
 
-## DateTime <a id='datetime'/>
+<a id='datetime'></a>
+## DateTime 
 - A class in System namespace
 - Constructor has many overloads
 - Example: ```var dateTime = DateTime(2015, 05, 26);```
@@ -528,7 +574,8 @@ condition will be run
 - Example: ```now.AddDays(-50).ToString(“yyyy-MM-dd HH:mm”);```
 - Google C# daytime format specifier
 
-## TimeSpan <a id='timespan'/>
+<a id='timespan'></a>
+## TimeSpan 
 - Represents a length of time
 - Declaration: ```var timeSpan = new TimeSpan(1, 2, 3); // 1h 2m 3s```
 - TimeSpan constructor has many overloads
@@ -544,7 +591,8 @@ ToString();
     - Example: timeSpan.Add(TimeSpan.FromMinutes(8));
 - Convert string to TimeSpan: TimeSpan.Parse(“01:02:03”);
 
-## Text & String <a id='text-and-string'/>
+<a id='text--string'></a>
+## Text & String 
 - string keyword (C# version) maps to String class of .Net
 - Strings are immutable
 - Useful methods: 
@@ -572,8 +620,12 @@ ToString();
  | f or F | Fixed Point |       1234.567 (F1): 1234.5        |
  | x or X | Hexadecimal |            255 (X): FF             |
 
-#### Join (static): String.Join(separatorString, stringArray) <a id='join-string'/>
-### StringBuilder <a id='string-builder'/>
+<a id='join'></a>
+#### Join
+- Static Method: String.Join(separatorString, stringArray) 
+
+<a id='stringbuilder'></a>
+### StringBuilder 
 - Part of System.Text namespace
 - It is some kind of mutable string that returns a normal immutable string at the end
 - Useful if there are a lot of string manipulations (since other manipulations must create a new string, each)
@@ -586,14 +638,21 @@ ToString();
 
 #### Note: A static method cannot call a non-static method as part of its process
 
-### Procedural Programming <a id='procedural-p'/> 
+<a id='procedural-programming'></a> 
+### Procedural Programming 
 - A programming paradigm based on procedure (function) calls
 - Move each logic (part of code that represent a single logic) to a separate method
 
-### Object-Oriented Programming <a id='oop'/>
+<a id='object-oriented-programming-oop'></a>
+### Object-Oriented Programming (OOP) 
 - A programming paradigm based on objects 
+- Three major concepts in OOP:
+  1. Encapsulation (Information Hiding)
+  2. Inheritance
+  3. Polymorphism
 
-## Files and Directories <a id='files-and-directories'/>
+<a id='files-and-directories'></a>
+## Files and Directories 
 - Namespace: System.IO
 - Useful classes: File, FileInfo, Directory, DirectoryInfo, Path
 - File and FileInfo methods: Create(), Copy(), Delete(), Exists(), GetAttributes(), Move(), ReadAllText()
