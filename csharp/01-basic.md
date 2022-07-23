@@ -84,7 +84,7 @@ Note: ByteCode and IL Code are independent of computer which it’s running
 - All utility classes and primitive types are there
 - System.Collections.Generics: library to work with lists, collections, and so on
 - System.Linq is used to work with data
-- System.Test is used to work with text, coding, etc.
+- System.Text is used to work with text, coding, etc.
 - System.Threading to build multithreading applications
 
 <a id='main-method'></a>
@@ -96,14 +96,17 @@ file named Program.cs
 
 <a id='constant-variables'></a>
 ### Constant Variables 
-- const ```<data-type>  \<identifier> = \<value>; ```
+- `const <data-type>  \<identifier> = \<value>; `
 - Constant identifiers are either PascalCase or all CAPITAL letters.
+- Hardcoded constants naming convention: underscore seperated all CAPITAL words
+- Constants calculated at runtime naming convention: PascalCase
 - Modifying a constant would give a compiler error
 
 <a id='variables'></a>
 ### Variables 
-- Syntax 1: ```<data-type> <identifier> = <value>;```
-- Syntax 2: ```var <identifier> = <value>;```
+- Syntax 1: `<data-type> <identifier> = <value>;`
+- Syntax 2: `var <identifier> = <value>;`
+- In teh second syntax, the variable type will be interpreted by the compiler.
 - Variable identifiers are camelCase
 - Primitive Data types:
 
@@ -144,9 +147,9 @@ runtime
 <a id='implicit-conversion'></a>
 ### Implicit Conversion 
 - Convert without asking
-- Possible only the byte size is increasing
+- Possible only if the byte size is increasing
 - It won't implicitly convert if there is a chance of data loss
-- Example assignment of byte to int
+- Example: assignment of byte to int
 - Example: assignment of int to double
 
 <a id='explicit-type-conversion-casting'></a>
@@ -175,7 +178,7 @@ runtime
     1. Method one: use “Convert” class from “System” namespace
        - Example: int  age  =  Convert.ToInt32(ageJson);
        - Note: from the method name, it appears that Convert class is part of .Net framework
-       - Other methods of convert class:
+       - Other methods of the Convert class:
            - ToByte()
            - ToInt16()
            - ToInt32()
@@ -189,9 +192,9 @@ runtime
 ### Operators 
 - Arithmetic:  +  -  *  /  %   ++   --   
     - Postfix increment: int b = a++;
-        - a would be one number greater than b
+        - "a" would be one number greater than "b"
     - Prefix Increment: int b = ++a;
-        - a would have equal value as be
+        - "a" would have equal value as "b"
     - Same logic for decrement
 - Comparison:  ==  !=  >  >=  <  <=
 - Assignment: =  +=  -=  *=  /=
@@ -212,15 +215,15 @@ runtime
 - A blueprint from which we create objects
 - Made of fields (attributes) and methods (functions)
 - Fields define the state of a class
-- Methods define the behaviour of the class
+- Methods define the behaviour of a class
 - Object is an isolated instance of a class
-- Define a class: ```<access-modifier> class <identifier> {}```
-    - Example: ```public class Person {}```
+- Define a class: `<access-modifier> class <identifier> {}`
+    - Example: `public class Person {}`
 - Use new operator to create an object of a class
     - new operator allocates a space in memory for the object.
     - Example: create an instance (object) of the class “Person”
-        - ```Person psn = new Person();```
-        - alternative syntax: ```var psn = new Person();```
+        - `Person psn = new Person();`
+        - alternative syntax: `var psn = new Person();`
     - Note: first “Person”  is type (class name) and second “Person” is constructor call
     - CLR takes care of allocating memory and freeing it at runtime.
 
@@ -238,7 +241,7 @@ attribute)
 
 <a id='struct'></a>
 ### Struct 
-- Declaration: ```<access-modifier> struct <identifier> {}```
+- Declaration: `<access-modifier> struct <identifier> {}`
 - Supports both fields and methods
 - Suitable for creating large number of tiny objects
 - It’s a better practice to use classes for most (99%) of applications
@@ -248,19 +251,19 @@ attribute)
 ### Array
 - Array is a non-primitive type
 - An array is a data structure to store a collection of values of the same type
-- Arrays have fix size. You need to specify the size in declaration, and it cannot be changed.
+- Arrays have fixed size. You need to specify the size in declaration, and it cannot be changed.
 - You need to allocate memory for arrays when declaring them. Use new operator for it.
 - Arrays are objects of the Array class. Array is a generic class.
-- Example: ```int[] numbers = new int[3];```
-- Example: ```var names = new string[2] {“John”, “Jane”};```
-- Example: ```var names = new string[] {“John”, “Jane”}; // still the size is fixed. It’s implicit```
+- Example: `int[] numbers = new int[3];`
+- Example: `var names = new string[2] {“John”, “Jane”};`
+- Example: `var names = new string[] {“John”, “Jane”}; // still the size is fixed. It’s implicit`
 - Use object initialization syntax if you know the values of entities in the array:
 
-    ```int[] numbers = new int[3] {1, 2, 3};```
+    `int[] numbers = new int[3] {1, 2, 3};`
 - Use square brackets to read and write to an entity of an array by index
 - Indexes start from 0
-- Read example: ```int firstNum = numbers[0];```
-- Write example: ```number[0] = 4;```
+- Read example: `int firstNum = numbers[0];`
+- Write example: `number[0] = 4;`
 - If declared but not initialized, entities of an array would be set to zero value of the array type
 - Zero value for numbers is zero, for string is null and for boolean is false.
 
@@ -269,15 +272,15 @@ attribute)
 - A sequence of characters
 - String (with capital s) => a class in .Net, string => C#
 - Use double quote for string literal
-- Example: ```string firstName = “John”;```
+- Example: `string firstName = “John”;`
 - Concatenate strings with plus operator:
-    - Example: ```fullName: firstName + “ “ + lastName;```
-- Recommended: use string format instead of + operator
-    - Example: ```string fullName = string.Format(“{0} {1}”, firstName, lastName});```
+    - Example: `fullName: firstName + “ “ + lastName;`
+- Recommended: use string format instead of + operator (because strings are immutable)
+    - Example: `string fullName = string.Format(“{0} {1}”, firstName, lastName});`
     - Note: placeholders 0, 1, etc are zero indexed. 
 - Strings are immutable (read only after creation). It means that any operation on strings will generate new strings rather than changing the original ones.
-- char  ```firstChar = name[0]; // no error```
-- ```name[0] = ‘D’; // compile error ```
+- char  `firstChar = name[0]; // no error`
+- `name[0] = ‘D’; // compile error `
 - Escape characters: 
     - \n => new line
     - \t =>  tab
@@ -287,24 +290,24 @@ attribute)
 - Verbatim strings: 
     - no character can scape in it
     - Starts with @
-    - Example: ```string path = @“c:\users\projects\directory”;```
-- ```String.Join(\<separator>, array);``` // to join all items in an array with a separator between them
-- Length of a string as an integer: fullName.Length
+    - Example: `string path = @“c:\users\projects\directory”;`
+- `String.Join(<separator>, array);` // to join all items in an array with a separator between them
+- Length of a string as an integer: `fullName.Length`
 - One string constructor overload to create a string accepts a character 
 array as argument
-    - Example: ```var name = new string(array);```
+    - Example: `var name = new string(array);`
 
 <a id='format-string'></a>
 #### Format string 
   ```
-  console.WriteLine(“{0} {1}”, byte.MinValue, byte.MaxValue);
+  string.Format(“{0} {1}”, byte.MinValue, byte.MaxValue);
   console.WriteLine(“{0} {1}”, float.MinValue, float.MaxValue);
   ```
 
 <a id='enums'></a>
 ## Enums 
 - A set of name / value pairs (constants)
-- Declaration: ```<access-modifier> enum <identifier> {}```
+- Declaration: `<access-modifier> enum <identifier> {}`
 - Values are integers
 - Identifier should be PascalCase. Because it’s a constant
 - Items are comma separated. Semicolon after the latest item.
@@ -323,15 +326,15 @@ array as argument
   ```
 - If values (1, 2, …) are not given, it will start from zero by default.
 - The element with value of zero is the default item. If there is no zero value, then the first item is the default item.
-- To get the default item: ```default(WeekDay)```. In our example it is ```Sunday```
-- Usage: with dot notation ```var day = WeekDay.Wednesday;```
+- To get the default item: `default(WeekDay)`. In our example it is `Sunday`
+- Usage: with dot notation `var day = WeekDay.Wednesday;`
 - Note: type of day variable is WeekDay. It is cast-able to integer
-- To declare a byte Enum: ```public enum Weekday : byte {} ```
-- To convert day to string: ```day.ToString();```
-- Note: ```Console.WriteLine(day);``` calls the ToString() method of the day object internally
-- To convert string (exp: “Friday”) to WeekDay enum: ```var day2 = (WeekDay) Enum.Parse(typeof(WeekDay), “Monday”);```
+- To declare a byte Enum: `public enum Weekday : byte {} `
+- To convert day to string: `day.ToString();`
+- Note: `Console.WriteLine(day);` calls the ToString() method of the day object internally
+- To convert string (exp: “Friday”) to WeekDay enum: `var day2 = (WeekDay) Enum.Parse(typeof(WeekDay), “Monday”);`
 - Enum class is in System namespace
-- ```Enum.Parse()``` returns an object type that can be cast to WeekDay
+- `Enum.Parse()` returns an object type that can be cast to WeekDay
 
 <a id='structures-vs-classes'></a>
 ## Structures VS Classes 
@@ -501,7 +504,7 @@ condition will be run
 - Then you can get a random integer, byte array or a double between 0 and 1 by calling the Next(), NextBytes(), and NextDouble() method
 - Example:
     ```
-    var random = Random();
+    var random = new Random();
     var randomInt = random.Next();
     var randomByteArray = random.NextBytes(array);
     var randomDouble = random.NextDouble()
@@ -521,25 +524,24 @@ condition will be run
     1. Rectangular array: number of columns in all rows are equal (a matrix)
        - Declaration: ```var matrix = new int[3, 5];```
        - Declaration:
-    ```
-    var matrix = new int[2, 3]
-        { {1, 2, 3},
-        {4, 5, 6} };
-    ```
-    - Access an element: ```var element = matrix[0, 2];```
-    - A three-dimensional array: ```var matrix = new int[2, 3, 4];```
-    2. Jagged array. Each row can have an arbitrary number of rows.
-    - Jagged array is like a single dimensional array where each element is a single dimensional array itself. 
-    - Declaration:
-  ```
-  var array = new int[3][];                         
-  array[0] = new int[4];
-  array[1] = new int[2];                   
-  array[2] = new int[7];
-  ```
-
-  - Access an element: ``` var element = array[2][6]; ```
-- CLR in C# is optimized for single dimensional arrays. Then Jagged arrays are faster that rectangular arrays.
+       ```
+       var matrix = new int[2, 3]
+           { {1, 2, 3},
+           {4, 5, 6} };
+       ```
+       - Access an element: ```var element = matrix[0, 2];```
+       - A three-dimensional array: ```var matrix = new int[2, 3, 4];```
+    2. Jagged array. Each row can have an arbitrary number of columns.
+       - Jagged array is like a single dimensional array where each element is a single dimensional array itself. 
+       - Declaration:
+       ```
+       var array = new int[3][];                         
+       array[0] = new int[4];
+       array[1] = new int[2];                   
+       array[2] = new int[7];
+       ```
+       - Access an element: ``` var element = array[2][6]; ```
+- CLR in C# is optimized for single dimensional arrays. Then Jagged arrays are slightly faster that rectangular arrays.
 - Array object properties: Length, 
 - Array static methods: Clear(), Copy(), IndexOf(); Reverse(), Sort(), …
 - Clear() is a static method which sets elements to zero value or null for reference types
@@ -601,7 +603,7 @@ ToString();
     - Create a substring: Substring(startIndex), Substring(StartIndex, length)
     - Replacing a character or substring: Replace(old, new)
     - Null Checking (static): String.IsNullOrEmpty(str), String.IsNullOrWhiteSpace(str). The second method checks for null, empty and whitespace.
-    - Splitting to array of strings: str.Split(‘ ‘) 
+    - Splitting to array of strings: str.Split(‘\<separator>‘) 
     - Parse to a non-compatible type: int.Parse(str), Convert.ToInt32(s)
     - Convert to string: call ToString() method or String.Format()
 
@@ -661,7 +663,7 @@ ToString();
 - Every time a static method is used, OS checks access to the file
 - Static methods are not efficient for large amount of operations => use FileInfo for it
 - Security and access checks are only done once creating an object of FileInfo object
-- Directory provides static methods, directory info provides instance methods
+- Directory provides static methods, DirectoryInfo provides instance methods
 - Directory and DirectoryInfo methods: CreateDirectory(), Delete(), Exists(), GetCurrentDirectory(), GetFiles(), Move(), GetLogicalDrives()
 - Path class: to work with strings that contains path of a file or directory
     - Methods: GetDirectoryName(), GetFileName(), GetExtension(), GetTempPath()
