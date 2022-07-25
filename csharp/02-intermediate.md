@@ -23,6 +23,8 @@
   - [Dictionary](#dictionary)
   - [Indexer Class](#indexer-class)
 - [Association Between Classes](#association-between-classes)
+- [Polymorphism](#polymorphism)
+  - [Upcasting And Down Casting](#upcasting-and-down-casting)
 
 <a id='application'></a>
 ## Application 
@@ -125,8 +127,9 @@
             this.name = name;
             this.height = 40;
         }
-        Public Person(string name int height) : this(name) {
+        Public Person(string name, int age, int height) : this(name) {
             this.height = height;
+            this.age = age;
         }
     }
     // inside the Main: 
@@ -204,7 +207,7 @@
   }
   ```
   - Logging the error in catch is recommended.
-  - ArgumentNullException as a class in System namespace. Its argument is the parameter name which becomes null.
+  - ArgumentNullException is a class in System namespace. Its argument is the parameter name which becomes null.
   - If ArgumentNullException is not handled it will still throw an error and crashes the application.
   - try / catch is an error handling mechanism. 
   - The `Exception` parameter in `catch` can be narrowed down to `ArgumentNullException`.
@@ -482,11 +485,12 @@
 ## Inheritance
 - Parent-child relationship between classes.
 - Child can reuse codes of parents (inherit code from parent).
-- Also known as **Is-A** relationship. A car (chile) is a vehicle (parent).
+- Also known as **Is-A** relationship. A car (child) is a vehicle (parent).
 - In C#, a class can have only one parent.
 - Benefits:
   1. Code reuse
-  2. Polymorphic behaviour
+  2. Encapsulation
+  3. Polymorphic behaviour
 - You should call the constructor of the parent (base) class in the constructor of its children.
 - Constructor of the base class is always executed first.
 - If base() is not called, the default parent constructor will be called. If parent class has no default (parameterless) constructor, compiler would complain.
@@ -549,4 +553,48 @@
 ### Protected Internal
 - A protected internal class, field, or method is accessible through same assembly or the children of the class
 - A class can be protected internal if it is nested inside another class.
+
+<a id='polymorphism'></a>
+## Polymorphism
+
+<a id='upcasting-and-down-casting'></a>
+### Upcasting And Down casting
+- Works because of inheritance.
+- Upcasting happens if we assign an object of a child class to a variable of a parent class.
+- Upcasting is implicit since parent class data and behaviour is included in the child object.
+- Example of upcasting:
+  ```
+  public class Triangle: Shape
+  {}
+  
+  // in the Main method: 
+  Shape shape = new Triangle();
+  ```
+- Note: In the example above, only Shape methods are available to the shape variable. 
+- Note: By down casting shape to Triangle type, shape object will get access to Triangle methods and properties.
+- Down casting happens if we explicitly cast an object of a parent type to a child class type.
+- Down casting is only possible if the underlying type of the parent object is actually the child class type.
+- Example of down casting:
+  ```
+  var triangle = (Shape)shape;
+  ```
+- If the underlying type of the shape is not Triangle, down casting it to Triangle would throw `InvalidCastException`.
+- Three ways to make sure we won't get the `InvalidCastException`:
+  1. Use try / catch
+  2. Use `as` keyword. It will return null if the underlying type mismatched the child class.
+     
+     Example: if `shape` is not `Triangle` then `triangle` would be `null`
+     ```
+     var triangle = shape as Triangle;
+     if (triangle != null)
+     {...}
+     ```
+  3. Use `is` for checking if type an object is a specified class: 
+    
+     Example: 
+     ```
+     if (shape is Triangle)
+     {...}
+     ```
+
 
