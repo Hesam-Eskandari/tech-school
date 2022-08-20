@@ -51,9 +51,9 @@
 
 In C and C++:  code -> compiler -> native code
 
-In Java:  code -> compiler -> ByteCode
+In Java:  code -> compiler -> ByteCode -> native Code
 
-In C#: code -> compiler -> IL Code (intermediate language)
+In C#: code -> compiler -> IL Code (intermediate language) -> native code
 
 Note: ByteCode and IL Code are independent of computer which it’s running
 
@@ -89,14 +89,14 @@ Note: ByteCode and IL Code are independent of computer which it’s running
 
 <a id='main-method'></a>
 ### Main method 
-- CLR needs to fine a method called “Main” in a class called Program in a 
+- CLR needs to find a method called “Main” in a class called Program in a 
 file named Program.cs
 - Main is static and does not return anything (=void)
 - Main can accept a string array argument. (string[] args)
 
 <a id='constant-variables'></a>
 ### Constant Variables 
-- `const <data-type>  \<identifier> = \<value>; `
+- `const <data-type>  <identifier> = <value>; `
 - Constant identifiers are either PascalCase or all CAPITAL letters.
 - Hardcoded constants naming convention: underscore seperated all CAPITAL words
 - Constants calculated at runtime naming convention: PascalCase
@@ -106,7 +106,7 @@ file named Program.cs
 ### Variables 
 - Syntax 1: `<data-type> <identifier> = <value>;`
 - Syntax 2: `var <identifier> = <value>;`
-- In teh second syntax, the variable type will be interpreted by the compiler.
+- In the second syntax, the variable type will be interpreted by the compiler.
 - Variable identifiers are camelCase
 - Primitive Data types:
 
@@ -219,8 +219,8 @@ runtime
 - Object is an isolated instance of a class
 - Define a class: `<access-modifier> class <identifier> {}`
     - Example: `public class Person {}`
-- Use new operator to create an object of a class
-    - new operator allocates a space in memory for the object.
+- Use `new` operator to create an object of a class
+    - `new` operator allocates a space in memory for the object at runtime.
     - Example: create an instance (object) of the class “Person”
         - `Person psn = new Person();`
         - alternative syntax: `var psn = new Person();`
@@ -252,15 +252,15 @@ attribute)
 - Array is a non-primitive type
 - An array is a data structure to store a collection of values of the same type
 - Arrays have fixed size. You need to specify the size in declaration, and it cannot be changed.
-- You need to allocate memory for arrays when declaring them. Use new operator for it.
-- Arrays are objects of the Array class. Array is a generic class.
+- You need to allocate memory for arrays when declaring them. Use `new` operator for it.
+- Arrays are objects of the `Array` class. `Array` is a generic class.
 - Example: `int[] numbers = new int[3];`
 - Example: `var names = new string[2] {“John”, “Jane”};`
 - Example: `var names = new string[] {“John”, “Jane”}; // still the size is fixed. It’s implicit`
 - Use object initialization syntax if you know the values of entities in the array:
 
     `int[] numbers = new int[3] {1, 2, 3};`
-- Use square brackets to read and write to an entity of an array by index
+- Use square brackets to read from and write to an entity of an array by index
 - Indexes start from 0
 - Read example: `int firstNum = numbers[0];`
 - Write example: `number[0] = 4;`
@@ -334,10 +334,12 @@ array as argument
 - Note: `Console.WriteLine(day);` calls the ToString() method of the day object internally
 - To convert string (exp: “Friday”) to WeekDay enum: `var day2 = (WeekDay) Enum.Parse(typeof(WeekDay), “Monday”);`
 - Enum class is in System namespace
-- `Enum.Parse()` returns an object type that can be cast to WeekDay
+- `Enum.Parse()` converts value to the type Enum. It returns an object type that can be downcast to WeekDay
 
 <a id='structures-vs-classes'></a>
 ## Structures VS Classes 
+<img alt="struct-vs-class-01" src="images/struct-vs-class-01.svg" width=800>
+
 - Primitive types and custom structs are structures
 - Arrays, strings and custom classes are classes
 - Structures are value types. Classes are reference types 
@@ -348,10 +350,10 @@ array as argument
 - If a referenced type object goes out of scope, it continues to stay on heap for a little while
 - CLR (= runtime) runs a process called garbage collection to free objects from heap.
 - Assignment of value types copies their value to a different memory address. The two values become independent.
-- A reference type object has values in heap and address as value in stack
+- A reference type object has values in heap and address as a different value in stack
 - Assignment in reference type objects copies their stack memory values which is the address to heap memory object.
-- Passing a value type variable to a function as argument would copy its value to a new variable in that function scope. It will end up with two variables with the same value but two different addresses in stack with two different scopes. (Even if they have the same name)
-- Passing a reference type object to a function as argument would copy its address to a new variable in that function scope. Both variables in two scopes (inside and outside if the function) will point to the same space in heap (value). Changing object properties in either scope would change the value in the same heap memory space.
+- Passing a value type variable to a function as argument would copy its value to a new variable in that function scope. It will end up with two variables with the same value but two different copies in stack with two different scopes. (Even if they have the same name)
+- Passing a reference type object to a function as argument would copy its address to a new variable in that function scope. Both variables in two scopes (inside and outside of the function) will point to the same space in heap (value). Changing object properties in either scope would change the value in the same heap memory space.
 
 <a id='conditional-statements'></a>
 ## Conditional Statements 
