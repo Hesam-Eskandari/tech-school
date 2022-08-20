@@ -346,6 +346,8 @@ array as argument
 - When you declare a value type, a part of stack memory gets allocated for it automatically
 - When a value type is out of scope, it gets removed from stack immediately by runtime (or CLR)
 - For reference types, programmer needs to allocate memory with new operator.
+- If a reference type contains a value type (object fields of structure type), values are part of the object and are saved in the heap memory.
+- Value types go where they are declared. If declared independently, they are saved in stack memory. If they are part of an object, they are saved in the heap.
 - Memory gets allocated for reference type from heap
 - If a referenced type object goes out of scope, it continues to stay on heap for a little while
 - CLR (= runtime) runs a process called garbage collection to free objects from heap.
@@ -354,6 +356,8 @@ array as argument
 - Assignment in reference type objects copies their stack memory values which is the address to heap memory object.
 - Passing a value type variable to a function as argument would copy its value to a new variable in that function scope. It will end up with two variables with the same value but two different copies in stack with two different scopes. (Even if they have the same name)
 - Passing a reference type object to a function as argument would copy its address to a new variable in that function scope. Both variables in two scopes (inside and outside of the function) will point to the same space in heap (value). Changing object properties in either scope would change the value in the same heap memory space.
+
+<img alt="struct-vs-class-01" src="images/struct-vs-class-02.svg" width=800>
 
 <a id='conditional-statements'></a>
 ## Conditional Statements 
@@ -400,7 +404,7 @@ array as argument
       break;
     default:
       multi-line indented statement
-      break
+      break;
   }
   ```
 - You can have as many cases as you want
@@ -521,7 +525,7 @@ condition will be run
     - ```var numbers = new int[20];```
 - Initializing an array if values are known at the time of initialization:
     - ```var numbers = new int[5] {1, 2, 3, 4, 5};```
-    - ```var numbers = new[] {1, 2, 3, 4, 5};``` // length is set implicitly and it’s fixed
+    - ```var numbers = new[] {1, 2, 3, 4, 5};``` // length is set implicitly, and it’s fixed. Same for type
 - Multi dimensional array:
     1. Rectangular array: number of columns in all rows are equal (a matrix)
        - Declaration: ```var matrix = new int[3, 5];```
