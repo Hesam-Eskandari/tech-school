@@ -138,8 +138,8 @@
     ```
   - person1 calls the second constructor overload and person2 calls the third one.
   - You cannot have two overloads with the exact same signature.
-  - this() is delegating a proper constructor overload (calling it before running its own body) that takes no parameter.
-  - this(name) is delegating a constructor that takes the "name" arg as input
+  - `this()` is delegating a proper constructor overload (calling it before running its own body) that takes no parameter.
+  - `this(name)` is delegating a constructor that takes the "name" arg as input
   - Constructor best practice:
     - If possible: Define a constructor with minimum required args and add other args with default value
     - Avoid creating overloads for different input combinations
@@ -326,7 +326,7 @@
 4. Internal: will be explained later
 5. Protected Internal: will be explained later
 - If there is any use case to access or modify a private field from outside, there can be public getter and setter methods.
-- Setter methods receive an input parameter and should validate it before assign it to the private field
+- Setter method receives an input parameter that should be validated before being assigned to the private field
 - A convention: private fields should be _camelCase starting with an underscore.
 - In OOP fields are private concepts, and they should be accessed through public methods.
 
@@ -547,7 +547,7 @@
 <a id='internal'></a>
 ### Internal
 - An internal class, field, or method is accessible in all classes of current assembly.
-- it makes sense to use internal instead of public in many cases
+- It makes sense to use internal instead of public in many cases
 
 <a id='protected-internal'></a>
 ### Protected Internal
