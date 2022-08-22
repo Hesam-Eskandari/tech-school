@@ -25,6 +25,8 @@
 - [Association Between Classes](#association-between-classes)
 - [Polymorphism](#polymorphism)
   - [Upcasting And Down Casting](#upcasting-and-down-casting)
+  - [Boxing And Unboxing](#boxing-and-unboxing)
+  - [Method Overriding](#method-overriding)
 
 <a id='application'></a>
 ## Application 
@@ -576,7 +578,7 @@
 - Down casting is only possible if the underlying type of the parent object is actually the child class type.
 - Example of down casting:
   ```
-  var triangle = (Shape)shape;
+  var triangle = (Triangle)shape;
   ```
 - If the underlying type of the shape is not Triangle, down casting it to Triangle would throw `InvalidCastException`.
 - Three ways to make sure we won't get the `InvalidCastException`:
@@ -596,5 +598,66 @@
      if (shape is Triangle)
      {...}
      ```
+<a id='boxing-and-unboxing'></a>
+### Boxing And Unboxing
+- Boxing: the process of converting a value typed instance to an object reference.
+- Example: `object num = 18;`
+- The value in boxing gets boxed and stored in the heap instead of stack.
+- Unboxing is the opposite of boxing.
+- Example: `int number = (int)num;`
+- Note: boxing and unboxing have extra performance penalty because of object creation.
+- Example: 
+  ```
+  var arrList = new ArrayList();
+  arrList.Add(21);
+  arrList.Add("years");
+  arrList.Add(DateTime.Today);
+  ```
+- In the example above, the integer 21 and `DateTime` structure are value types. The input of the Add method is an object. Hence, boxing happens for the first and third add.
+- Second issue. `ArrayList` compromises type safety.
+- Solution: use generic list. Add method received an integer instead of an object. It helps with type safety and no boxing.
+  ```
+  var list = new List<int>();
+  lust.Add(21);
+  ```
 
-
+<a id='method-overriding'></a>
+### Method Overriding
+- Overriding: Modifying the implementation of the inherited method.
+- Parent class must allow its method to be overridden by its children classes -> Use `virtual` keyword.
+- Child class should specify the method is being overridden -> Use `override` keyword.
+- If not overridden, the default parent implementation of the method would be inherited.
+- Polymorphism example:
+  ```
+  public class Shape {
+    public virtual void Draw() {
+      Console.WriteLine("Inside Shape.Draw()");
+    }
+  }
+  
+  public class Circle: Shape {
+    public override void Draw() {
+      Console.WriteLine("Inside Circle.Draw()");
+    }
+  }
+  
+  public class Triangle: Shape {
+    public override void Draw() {
+      Console.WriteLine("Inside Triangle.Draw()");
+    }
+  }
+  
+  // inside main:
+  var shapes = new List<Shape>();
+  shapes.Add(new Circle());
+  shapes.Add(new Triangle());
+  foreach(var shape in shapes)
+  {
+    shape.Draw();
+  }
+  ```
+  Console output:
+  ```
+    Inside Circle.Draw()
+    Inside Triangle.Draw()
+  ```
