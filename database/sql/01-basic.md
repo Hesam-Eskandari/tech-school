@@ -287,7 +287,7 @@
 - Aggregate functions: run all selected rows and return a single value
   - Example: `SUM`, `AVG`, `COUNT`, `MIN`, `MAX`
 - Scalar functions: run on given columns separately on each row and return a single column
-  - Example: `CONCAT`
+  - Example: `CONCAT`, `COALESCE`
 
 #### Comment
 - Single line comment: `-- the rest of the line after two dashes`
@@ -298,10 +298,143 @@
 - Use `WHERE` clause to add condition to the query.
 - Example: limit the retrieved data to specific age range, range of salaries, person name, etc.
 - Example: `SELECT firstname FROM person WHERE age >= 18`
-- Conditions: >= > = < <= LIKE ILIKE IN ...
+- Conditions: >= > = < <= != <> LIKE ILIKE IN ...
 - Note: Check equality with single `=` instead of double `==`
+- Note: comparing strings: `a` < `b` => true
+- Note: comparing strings: `a` < `A` => true
+- Note: comparing strings: `A` < `b` => true
+- Example: `abc` > `ace` => false
+- Note: `a` < `A` < `b` < `B` ...
+- Question: true or false? `SELECT 'ab' < 'A'`
+- Note: `a` < `A` < `aA` < `Aa`
+- Note: `a` < `ab` < `abc` < `b`
 
 #### Multiple Conditions
 - To apply multiple filters, we can use `AND`, `OR`, and `NOT` keywords.
-- Operator Precedence: `parentheses` > `NOT` > `AND` > `OR`
--   
+- Operator Precedence: `(parentheses)` > `* /` > `+ -` > `NOT` > `AND` > `OR`
+- More details: (parentheses) > arithmetic operators > concatenation Operators > comparison conditions > `IS NULL`, `LIKE`, `NOT IN`, etc > `NOT` > `AND` > `OR`
+- For the same operators, precedence is left to right for most operands and right to left for others
+- Right to left operands: unary plus, unary minus, `NOT`.
+
+#### NULL Values
+- In SQL NULL means anything
+- Following are a few examples of the three-values logic:
+- `NULL OR true` => `true`
+- `NULL OR false` => `NULL`
+- `NULL AND true` => `NULL`
+- `NULL AND false` => `false`
+- Null is not equal to null:
+- `NULL = NULL` => `NULL`
+- `NULL != NULL` => `NULL`
+- `Null = 'some value' => NULL`
+- `Null != 'some value' => NULL`
+- NULL is software debt. It makes programs to crash or make mistake
+- It is possible to constraint a column to be not nullable.
+- Always check for NULL values for nullable entities
+- To check for `NULL` value, the `IS` keyword must be used.
+
+#### IS
+- Use to check for `NULL`
+- Syntax: `SELECT * FROM <table> WHERE <column> IS [NOT] NULL;`
+- Other use cases: `SELECT * FROM employees WHERE gender = 'M' IS false;`
+
+#### COALESCE
+- Use as `NULL` value substitution
+- Syntax `SELECT COALESCE(<column>, 'Empty') AS "<alias>" FROM <table>;`
+- Note: 'Empty' is the fallback value. If column value is `NULL`, it would fall back to 'Empty'.
+- Multiple columns: `COALESCE(<col1>, <col2>, <col3>, 'Empty') AS <alias>`
+- Example: `SELECT coalesce(firstname, lastname, 'None') AS "name" from person;`
+
+#### BETWEEN AND
+- Use case: to filter based on a range
+- Note: the range is **inclusive**
+- Example: `SELECT * FROM customers WHERE age BETWEEN 18 AND 65;`
+- Equivalent: `SELECT * FROM customers WHERE age >= 18 AND age <= 65;`
+
+#### IN
+- To filter based on items in an array
+- The `IN` keyword avoids writing many equal and ADN conditions.
+- Example: `SELECT * FROM orders WHERE country IN ('us', 'ca')`
+
+#### LIKE
+- Use case: query based on a pattern in records of a column.
+- `LIKE` is equivalent to `~~`
+- `NOT LIKE` is equivalent to `!~~`
+- On Postgres, the type of column must be text (string) in order to be able to use `LIKE` on it. 
+- Example: `SELECT name FROM person WHERE name LIKE 'J%';` => All names that start with the letter 'J'.
+- Use regular expression (wildcards) to build the pattern
+  - For zero or more characters: `%`
+  - For exactly one character: `_`
+  - Any single character specified in brackets: `[adg]`
+  - Any single character not specified in brackets: `[^ot]` or `[!ot]`
+  - Any single character within a range (inclusive): `-`
+  - One or more character of choice: `([1-9]+)`
+- Example: `[0-9]` => any number between 0 and 9
+- Example: `h[^ao]t` => may return 'hit' but not 'hat' or 'hot'
+- Example: `_%@_%.com` => an email address with `.com` domain
+- To make the pattern matching case-insensitive: use `ILIKE` instead of `LIKE`.
+- `ILIKE` is equivalent to `~~*`
+- `NOT ILIKE` is equivalent to `!~~*`
+- In order to use `LIKE` for non-text columns, they should be cast to text.
+
+#### CAST Function
+- Syntax: `CAST(<column> as text)`
+- Shorthand syntax: `<column>::text`
+- `SELECT * FROM person WHERE birth_date::text LIKE '1990%';`
+
+#### Timezone
+- GMT is short for Greenwich Mean Time.
+- GMT is not a standard, it is a timezone.
+- UTC is short for Universal Time Coordinate
+- UTC is not a timezone, it is a standard
+- Greenwich is the reference point in timezone in UTC standard
+- UTC and GMT share the same current time
+- It is recommended to use UTC as standard
+- To set UTC only for the current session: `SET TIME ZONE 'UTC';`
+- Set timezone for all next sessions for the current user: `ALTER USER postgres SET timezone='UTC';`
+
+#### Format Date And Time
+- A format is a way of representing a date and time.
+- Postgres uses ISO-8601. This is standard about formatting date and time.
+- ISO-8601: `YYYY-MM-DDTHH:MM:SS`
+- Example: `2022-06-21T11:18:07+02:00`
+- Note: The `+02:00` is the timezone.
+
+#### Timestamp
+- Is a type of data that a column can be constraint to.
+- Example `INSERT INTO timezones VALUES (TIMESTAMP WITHOUT TIME ZONE '2022-06-21T11:18:07-05', TIMESTAMP WITH TIME ZONE '2022-06-21T11:18:07-05');`
+
+#### Date Functions
+- Get current date:
+  - Method one: `SELECT now()::date;`
+  - Method two: `SELECT CURRENT_DATE;`
+- Format a date to a custom format with `TO_CHAR`:
+  - Example: format current date to `dd/mm/yyyy`  
+    `SELECT TO_CHAR(CURRENT_DATE, 'dd/mm/yyyy');`
+  - Example: `select to_char(current_date, 'yyyy/mm/dd_ww-ddd');`
+#### To Date
+- To date: It converts a date to a Postgres date format
+  - Example: `SELECT date '2020-12-19'`
+- Get number of days since a date: `select now() - '1991-06-21'` or `select now() - date '1991/06/21'`
+
+#### AGE
+- Calculate age: `SELECT AGE(date '1991-06-21');`
+- Calculate age between two dates: `SELECT AGE(date '2021-08-12', date '1991-06-21');`
+- Get year from age: `SELECT to_char(AGE(date '1991-06-21'), 'yyyy');`
+
+#### EXTRACT FROM
+- Extract day from a date: `SELECT EXTRACT (DAY FROM date '1991/08/20') AS "Day";`
+- Example: `SELECT EXTRACT (YEAR FROM AGE(date '1991-06-21'));`
+- Example: `SELECT EXTRACT (DAY FROM AGE(date '1991-06-21'));`
+
+#### Date Trunc
+- It truncates a date to the beginning of the given period
+- Example: `SELECT DATE_TRUNC('year', date '2000/07/18');` => '2000/01/01'
+- Use case: if you need to search from the start of the year of some date
+- Example: `SELECT DATE_TRUNC('month', date '2000/07/18');`
+
+
+### Order of Operations
+1. FROM
+2. WHERE
+3. SELECT
