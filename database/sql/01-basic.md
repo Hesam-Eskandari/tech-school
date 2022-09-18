@@ -285,7 +285,7 @@
 
 #### Functions:
 - Aggregate functions: run all selected rows and return a single value
-  - Example: `SUM`, `AVG`, `COUNT`, `MIN`, `MAX`
+  - Example: `SUM`, `AVG`, `COUNT`, `MIN`, `MAX`, `LENGTH`
 - Scalar functions: run on given columns separately on each row and return a single column
   - Example: `CONCAT`, `COALESCE`
 
@@ -353,7 +353,7 @@
 
 #### IN
 - To filter based on items in an array
-- The `IN` keyword avoids writing many equal and ADN conditions.
+- The `IN` keyword avoids writing many equal and `AND` conditions.
 - Example: `SELECT * FROM orders WHERE country IN ('us', 'ca')`
 
 #### LIKE
@@ -391,7 +391,7 @@
 - UTC and GMT share the same current time
 - It is recommended to use UTC as standard
 - To set UTC only for the current session: `SET TIME ZONE 'UTC';`
-- Set timezone for all next sessions for the current user: `ALTER USER postgres SET timezone='UTC';`
+- Set timezone for all next sessions for the current user: `ALTER USER <postgres> SET timezone='UTC';`
 
 #### Format Date And Time
 - A format is a way of representing a date and time.
@@ -433,8 +433,86 @@
 - Use case: if you need to search from the start of the year of some date
 - Example: `SELECT DATE_TRUNC('month', date '2000/07/18');`
 
+#### DISTINCT
+- It is used to remove duplicates.
+- It keeps one row for each group of duplicates.
+- It can be applied to multiple columns. The result would be a unique combination of columns.
+- Use case example: Find the name of products that was sold this week.
+- Note: using `Distinct` on multiple columns returns equal or more records that using `Distinct` on each of those columns would return.
 
+#### Sorting With ORDER BY
+- Data can be sorted either ascending or descending.
+- Use optional `ASC` or `DESC` keywords for ascending or descending sorting respectively.
+- Default direction is ascending. It is recommended to use `ASC` keyword to prevent the logic to break just in case if defaults change.
+- Syntax: `SELECT * FROM <table-name> ORDER BY <column-name> DESC;`
+- Example: `SELECT name, age FROM person ORDER BY age DESC;`
+- Multiple columns: `... ORDER BY <column-one> DESC, <column-two> ASC;`
+- Note: The following statement sorts the `age` ascending and `date_of_birth` descending.
+    `SELECT * FROM person ORDER BY age, date_of_birth DESC;`
+- Functions can be used while sorting:
+    `... ORDER BY LENGTH(salary::text) DESC;`
+- Note: The function `LENGTH` accepts text inputs.
+- Note: The column that is being sorted must be specified after the `SELECT` keyword as well.
+- Example: `SELECT DISTINCT(LENGTH(salary::text)) AS usal FROM salaries ORDER BY usal DESC;`
+- Example: `SELECT salary FROM salaries ORDER BY LENGTH(salary::text) DESC;`
+
+#### JOIN
+- Why to split data to multiple tables?
+  - To avoid duplicate data and organize data based on logic.
+  - To simplify modifying data.
+  - Example:
+    - Keep customers and orders data in one table.
+    - Each client can make multiple orders (one-to-many relationship)
+    - Each row contains both customer and order information.
+    - Customer information such as name, address, payment information, age, etc.
+    - Order information such as date, purchase amount, order id, etc.
+    - For each new order, there will be new order information but customer info gets repeated.
+    - For example if a customer makes 200 orders, the customer information is duplicated in 200 records.
+    - Second problem is when a customer information needs to be modified. Such as address, payment method, etc.
+    - Solution: split data to two tables: 1. Customer table and orders table
+  - Splitting data to multiple tables requires a way of linking tables together
+  - Example: it is required for each order to be linked to a customer. Otherwise, it would be ambiguous who made an order.
+    - For customer-order example, a link is required to create one-to-many relationship. (one customer, multiple orders)
+    - A new column in the order table is required as foreign key. This column is the customer id (or primary key of customer table)
+- Join merges two tables based on an existing link. It can return a custom selection of columns from each table.
+- Example: 
+```
+    SELECT CONCAT(c.firstname, c.lastname) AS "name", c.phone_number AS "phone number", o.date AS "order date", o.id as "order id"
+    FROM customers AS c
+    JOIN orders AS o ON c.id = o.customer_id
+    ORDER BY o.date DESC;
+```
+- The above select statement is called inner join. 
+- Left Table: the table specified after the `FROM` keyword is called the left table.
+- Right Table: the tables specified after the `JOIN` keyword is called the right table.
+- Four different approaches to join tables:
+  1. Inner join: It returns the intersection of the two tables. Which means where primary key and foreign key in the two tables match.  
+     Syntax: `SELECT <col-one> ... FROM <table-one> INNER JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`  
+     Note: The `INNER` keyword can be omitted. The default join is the `INNER JOIN`.
+  2. Left join: It returns all records of the left table extended with correlated records of the right table.
+     If a primary key of the left table does not exist in any record in the right table, then the selected row of the join statement will have null values as placeholder for columns from the right table.
+     Syntax: `SELECT <col-one> ... FROM <table-one> LEFT JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`
+  3. Right join: It returns all records of the right table extended with correlated records of the left table.
+     If a primary key of the right table does not exist in any record in the left table, then the selected row of the join statement will have null values as placeholder for columns from the left table.
+     Syntax: `SELECT <col-one> ... FROM <table-one> RIGHT JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`
+  4. Cross (Outer) Join: Every record of the left table is matched with all records of the second table.
+     Syntax: `SELECT <col-one> ... FROM <table-one> CROSS JOIN <table-two>;`
+
+Note: Inner join can be written with `WHERE` clause:
+- Example: 
+    ```
+    SELECT CONCAT(e.first_name, e.last_name) AS "name", s.salary AS "salary"
+    FROM salaries AS s, employees AS e
+    WHERE e.emp_no = s.emp_no;
+    ```
+NOte: Cross join can be written with `WHERE` clause:
+- Example:
+    ```
+    SELECT CONCAT(e.first_name, e.last_name) AS "name", s.salary AS "salary"
+    FROM salaries AS s, employees AS e
+    ```
 ### Order of Operations
 1. FROM
 2. WHERE
-3. SELECT
+3. ORDER BY
+4. SELECT
