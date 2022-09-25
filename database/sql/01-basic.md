@@ -33,8 +33,8 @@
 - SQL is an RDBMS programming language that stores and retrieves data.
 - SQL Online Playground: [db-fiddle.com](https://www.db-fiddle.com/)
 - Each row is a separate entity called a record.
-  - Each column is a specific feature of an entity. For example: age, address, name.
-    - Example of a table named **Employees** in a relational database:
+- Each column is a specific feature of an entity. For example: age, address, name.
+- Example of a table named **Employees** in a relational database:
 
 | firstname | lastname | age |
 |:---------:|:--------:|:---:|
@@ -80,7 +80,7 @@
 - Short for **Structured Query Language**
 - It is made by IBM scientists in the 1970s.
 - SQL is a standardized language.
-- <img alt="sql-flow-01.svg" src="images/sql-flow-01.svg" width=800>
+<img alt="sql-flow-01.svg" src="images/sql-flow-01.svg" width=800>
 
 
 ## History Of Database
@@ -132,6 +132,7 @@
 - Link the two tables with primary keys and foreign keys
 - Example:
 <img alt="relational-model-01.svg" src="images/relational-model-01.svg" width=800>
+
 - To build the many-to-many relationship between books and authors:
   - Remove the `author_id` column from the `Book` table.
   - Create another table that maps author ids to book ids.
@@ -216,7 +217,7 @@
 #### Exercise
 - Which one is OLTP vs OLAP?
   1. A database that logs customers and orders
-  2. A databased being used to figure out what new products should be offered
+  2. A database being used to figure out what new products should be offered
   3. A database to drive statistics to be reported to executives
   4. A database to keep track of users
 - Answer: Transactional database-Analytical database-Analytical database-Transactional database
@@ -236,7 +237,7 @@
 ### Installed On Ubuntu
 - To run postgres commands: `sudo -u postgres psql postgres`
 - To see the list of databases: `\l+`
-- Set password for user 'postgres': `\password postgres`
+- Set password for the user "**postgres**": `\password postgres`
 
 ## SQL Commands
 
@@ -275,19 +276,20 @@
 - Base syntax: `SELECT <column-name> AS <column-alias> FROM <table-name> AS <table-alias>;`
 - Separate multiple column identifiers by comma
 - Use astrix (`*`) to select all columns.
+- Example: `SELECT firstname AS name, phone_number AS contact FROM current_customers AS clients;`
 #### CONCAT
 - It concatenates two or more columns and name the result column as `concat`
-- It does not modify the original table. It just applies to the retrieved data
 - Example: `SELECT CONCAT(firstname, ' ', lastname) as "full name" FROM person;`
 - Note: Use single quotes for strings in data
-- Note: Use double quote for column and table names and aliasing
+- Note: Use double quotes for column and table names and aliasing
 - A function like `CONCAT` will put its name ('concat') as column name by default unless an alias is specified
 
 #### Functions:
-- Aggregate functions: run all selected rows and return a single value
+- Aggregate functions: run on all selected rows and return a single value
   - Example: `SUM`, `AVG`, `COUNT`, `MIN`, `MAX`, `LENGTH`
 - Scalar functions: run on given columns separately on each row and return a single column
   - Example: `CONCAT`, `COALESCE`
+- Note: Setting aliases and applying function do not modify the original table. It just applies to the retrieved data.
 
 #### Comment
 - Single line comment: `-- the rest of the line after two dashes`
@@ -317,7 +319,7 @@
 - Right to left operands: unary plus, unary minus, `NOT`.
 
 #### NULL Values
-- In SQL NULL means anything
+- In SQL NULL means **anything**
 - Following are a few examples of the three-values logic:
 - `NULL OR true` => `true`
 - `NULL OR false` => `NULL`
@@ -464,12 +466,12 @@
     - Keep customers and orders data in one table.
     - Each client can make multiple orders (one-to-many relationship)
     - Each row contains both customer and order information.
-    - Customer information such as name, address, payment information, age, etc.
-    - Order information such as date, purchase amount, order id, etc.
+    - Customer information includes name, address, payment information, age, etc.
+    - Order information includes date, purchase amount, order id, etc.
     - For each new order, there will be new order information but customer info gets repeated.
-    - For example if a customer makes 200 orders, the customer information is duplicated in 200 records.
+    - For example if a customer makes 200 orders, the customer information is duplicated in 200 records and only the order details differ.
     - Second problem is when a customer information needs to be modified. Such as address, payment method, etc.
-    - Solution: split data to two tables: 1. Customer table and orders table
+    - Solution: split data to two tables: 1. Customer table 2.Orders table
   - Splitting data to multiple tables requires a way of linking tables together
   - Example: it is required for each order to be linked to a customer. Otherwise, it would be ambiguous who made an order.
     - For customer-order example, a link is required to create one-to-many relationship. (one customer, multiple orders)
@@ -489,9 +491,11 @@
   1. Inner join: It returns the intersection of the two tables. Which means where primary key and foreign key in the two tables match.  
      Syntax: `SELECT <col-one> ... FROM <table-one> INNER JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`  
      Note: The `INNER` keyword can be omitted. The default join is the `INNER JOIN`.
+     <img alt="sql-join-01.svg" src="images/sql-join-01.svg" width=800>
   2. Left join: It returns all records of the left table extended with correlated records of the right table.
      If a primary key of the left table does not exist in any record in the right table, then the selected row of the join statement will have null values as placeholder for columns from the right table.
      Syntax: `SELECT <col-one> ... FROM <table-one> LEFT JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`
+     <img alt="sql-join-02.svg" src="images/sql-join-02.svg" width=800>
   3. Right join: It returns all records of the right table extended with correlated records of the left table.
      If a primary key of the right table does not exist in any record in the left table, then the selected row of the join statement will have null values as placeholder for columns from the left table.
      Syntax: `SELECT <col-one> ... FROM <table-one> RIGHT JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`
@@ -509,8 +513,22 @@ NOte: Cross join can be written with `WHERE` clause:
 - Example:
     ```
     SELECT CONCAT(e.first_name, e.last_name) AS "name", s.salary AS "salary"
-    FROM salaries AS s, employees AS e
+    FROM salaries AS s, employees AS e;
     ```
+- Join three tables: 
+  - If all tables have a shared attribute:
+    - Example of inner join
+      <img alt="sql-join-03.svg" src="images/sql-join-03.svg" width=800>
+    - Note: The `ON` keyword is similar to `WHERE`. There can be conditions to be added with `AND` and `OR` to `ON`.
+    - Example:
+      ```
+      SELECT cc.customer_id, o.order_id, cc.name, o.price
+      FROM current_custometrs AS cc
+      JOIN orders AS o ON cc.customer_id = o.customer_id
+      JOIN return_requests as rr ON cc.customer_id = rr.customer_id
+        AND rr.date <= (o.date + interval '60 days');
+      ```
+
 ### Order of Operations
 1. FROM
 2. WHERE
