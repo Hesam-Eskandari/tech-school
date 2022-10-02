@@ -1,13 +1,46 @@
 # SQL 
+- [Introduction](#introduction)
+  - [Database](#database)
+    - [Definition](#definition)
+    - [DBMS](#db-management-system)
+    - [Types of databases](#types-of-databases)
+    - [RDBMS](#rdbms)
+    - [Sample Query](#sample-query)
+  - [Declarative VS Imperative](#declarative-vs-imperative)
+    - [Declarative Language](#declarative-language)
+    - [Imperative Language](#imperative-language)
+  - [SQL VS Sequel](#sql-vs-sequel)
+    - [SEQUEL](#sequel-naming)
+    - [SQL](#sql-naming)
+- [History Of Database](#history-of-database)
+  - [File Processing Systems](#file-processing-systems)
+  - [Database Models](#database-models)
+    - [Hierarchical Model](#hierarchical-model)
+    - [Networking Model](#hierarchical-model)
+    - [Relational Model](#hierarchical-model)
+- [DBMS](#database-management-system)
+  - [CRUD](#crud)
+    - [Create](#create)
+    - [Read](#read)
+    - [Update](#update)
+    - [Delete](#delete)
 
+<a id="introduction"></a>
 ## Introduction
 
+<a id="database"></a>
 ### Database
+
+<a id="definition"></a>
 #### Definition 
 - A system made of hardware to store and process data, and software to access and manage data
+
+<a id="db-management-system"></a>
 #### DBMS
 - Short for database management system. 
 - A software that manages databases by storing and manipulating data in a hardware.
+
+<a id="types-of-databases"></a>
 #### Types of databases
 1. Relational
    - MS SQL, MySQL, Postgres, etc. 
@@ -27,6 +60,7 @@
 6. Wide Columnar
    - Pioneered by Google’s big table databases like Apache Cassandra.
 
+<a id="rdbms"></a>
 #### RDBMS
 - Short for relational database management system.
 - A DBMS that is specified for relational databases
@@ -42,6 +76,7 @@
 |   Jane    |  Smith   | 26  |
 |   John    |   Doe    | 31  |
 
+<a id="sample-query"></a>
 #### Sample Query
 - Query is also known as SQL statement
 - Syntax: `SELECT <column-name> FROM <table-name>;`
@@ -57,24 +92,30 @@
 - Query statement does not necessarily end at the end of a line
   - A query ends where SQL sees a semicolon.
 
+<a id="declarative-vs-imperative"></a>
 ### Declarative VS Imperative
 
+<a id="declarative-language"></a>
 #### Declarative Language
 - User specifies **what** should happen
 - How it's happening is not obvious
 - SQL is a declarative language
 
+<a id="imperative-language"></a>
 #### Imperative Language
 - User must specify how exactly something should happen
 - Example: Java
 
+<a id="sql-vs-sequel"></a>
 ### SQL VS SEQUEL
 
+<a id="sequel"></a>
 #### SEQUEL 
 - The original name for SQL language
 - Short for **Structured English Query Language**
 - It had to be changed because of copyright conflict
 
+<a id="sql-naming"></a>
 #### SQL
 - Is the true, official, and current name of this language
 - Short for **Structured Query Language**
@@ -82,16 +123,19 @@
 - SQL is a standardized language.
 <img alt="sql-flow-01.svg" src="images/sql-flow-01.svg" width=800>
 
-
+<a id="history-of-database"></a>
 ## History Of Database
 
+<a id="file-processing-systems"></a>
 ### File Processing Systems
 - It was similar to keeping files in a cabinet
 - No correlation (=relationship) between files
 - It was not possible for different system to communicate with each other. Hence, data had to be copied into different systems.
 
+<a id="database-models"></a>
 ### Database Models
 
+<a id="hierarchical-model"></a>
 #### Hierarchical Model
 - Old and deprecated
 - Primarily used by IBM in the 60s and 70s.
@@ -118,6 +162,7 @@
 - Hierarchical model example:
 <img alt="hierarchical-model-01.svg" src="images/hierarchical-model-01.svg" width=800>
 
+<a id="networking-model"></a>
 #### Networking Model
 - Old and deprecated
 - Fixes the lack of many-to-many relationships between nodes.
@@ -126,6 +171,7 @@
 - Conclusion: the tree like structure does not provide a general model for storing data.
 - One solution: relational model
 
+<a id="relational-model"></a>
 #### Relational Model
 - Have one table to store information about authors
 - Have one table to store information about books
@@ -139,20 +185,28 @@
 - Primary key: is a column with unique values in a table. It is referred as `id` in the example above.
 - Foreign key: is another table's primary key. It is used to build relationship between tables.
 
-## DBMS
+<a id="database-management-system"></a>
+## Database Management System (DBMS)
 
+<a id="crud"></a>
 ### CRUD
+
+<a id="create"></a>
 #### Create
 - Create databases, tables, and add data
 
+<a id="read"></a>
 #### Read
 - Read data from database
 
+<a id="update"></a>
 #### Update
 - Change and update existing data
 
+<a id="delete"></a>
 #### Delete
 - Delete data, tables and databases
+
 
 ### What DBMS Does
 #### Manage Data
@@ -485,24 +539,25 @@
     ORDER BY o.date DESC;
 ```
 - The above select statement is called inner join. 
-- Left Table: the table specified after the `FROM` keyword is called the left table.
-- Right Table: the tables specified after the `JOIN` keyword is called the right table.
-- Four different approaches to join tables:
+- Left Table: the table specified after the `FROM` keyword is called the left table.  
+- Right Table: the tables specified after the `JOIN` keyword is called the right table.  
+- Four different approaches to join tables:  
   1. Inner join: It returns the intersection of the two tables. Which means where primary key and foreign key in the two tables match.  
-     Syntax: `SELECT <col-one> ... FROM <table-one> INNER JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`  
-     Note: The `INNER` keyword can be omitted. The default join is the `INNER JOIN`.
-     <img alt="sql-join-01.svg" src="images/sql-join-01.svg" width=800>
-  2. Left join: It returns all records of the left table extended with correlated records of the right table.
-     If a primary key of the left table does not exist in any record in the right table, then the selected row of the join statement will have null values as placeholder for columns from the right table.
-     Syntax: `SELECT <col-one> ... FROM <table-one> LEFT JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`
-     <img alt="sql-join-02.svg" src="images/sql-join-02.svg" width=800>
-  3. Right join: It returns all records of the right table extended with correlated records of the left table.
-     If a primary key of the right table does not exist in any record in the left table, then the selected row of the join statement will have null values as placeholder for columns from the left table.
-     Syntax: `SELECT <col-one> ... FROM <table-one> RIGHT JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`
-  4. Cross (Outer) Join: Every record of the left table is matched with all records of the second table.
-     Syntax: `SELECT <col-one> ... FROM <table-one> CROSS JOIN <table-two>;`
+     Syntax: `SELECT <col-one> ... FROM <table-one> INNER JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`   
+     Note: The `INNER` keyword can be omitted. The default join is the `INNER JOIN`.  
+     <img alt="sql-join-01.svg" src="images/sql-join-01.svg" width=800>  
+  2. Left join: It returns all records of the left table extended with correlated records of the right table.  
+     If a primary key of the left table does not exist in any record in the right table, then the selected row of the join statement will have null values as placeholder for columns from the right table.  
+     Syntax: `SELECT <col-one> ... FROM <table-one> LEFT [OUTER] JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`  
+     <img alt="sql-join-02.svg" src="images/sql-join-02.svg" width=800>  
+  3. Right join: It returns all records of the right table extended with correlated records of the left table.  
+     If a primary key of the right table does not exist in any record in the left table, then the selected row of the join statement will have null values as placeholder for columns from the left table.  
+     Syntax: `SELECT <col-one> ... FROM <table-one> RIGHT [OUTER] JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`  
+  4. Cross (Outer) Join: Every record of the left table is matched with all records of the second table.  
+     It is also called cartesian product.  
+     Syntax: `SELECT <col-one> ... FROM <table-one> CROSS JOIN <table-two>;`  
 
-Note: Inner join can be written with `WHERE` clause:
+Note: Inner join can be written with `WHERE` clause:  
 - Example: 
     ```
     SELECT CONCAT(e.first_name, e.last_name) AS "name", s.salary AS "salary"
@@ -529,8 +584,16 @@ NOte: Cross join can be written with `WHERE` clause:
         AND rr.date <= (o.date + interval '60 days');
       ```
 
+#### Using
+- If the two link columns in the two tables have the same name, we can use `Using` while joining them.
+- Example: 
+   ```
+   SELECT <col-one> ... FROM <table-one> INNER JOIN <table-two> ON USING <key>;
+   ```
 ### Order of Operations
 1. FROM
 2. WHERE
-3. ORDER BY
-4. SELECT
+3. GROUP BY
+4. HAVING
+5. SELECT
+6. ORDER BY
