@@ -16,14 +16,31 @@
   - [File Processing Systems](#file-processing-systems)
   - [Database Models](#database-models)
     - [Hierarchical Model](#hierarchical-model)
-    - [Networking Model](#hierarchical-model)
-    - [Relational Model](#hierarchical-model)
+    - [Networking Model](#networking-model)
+    - [Relational Model](#relational-model-1)
 - [DBMS](#database-management-system)
   - [CRUD](#crud)
     - [Create](#create)
     - [Read](#read)
     - [Update](#update)
     - [Delete](#delete)
+  - [What DBMS Odes](#what-dbms-does)
+    - [Manage Data](#manage-data)
+    - [Secure Data](#secure-data)
+    - [Transaction Management](#transaction-management)
+  - [MS SQL vs Oracle vs MySQL](#ms-sql-vs-oracle-vs-mysql)
+  - [Codd's Rules](#codds-rules)
+  - [Relational Model](#relational-model)
+    - [Terms](#terminology)
+    - [Primary Key](#primary-key)
+    - [Foreign Key](#foreign-key)
+  - [OLTP vs OLAP](#oltp-vs-olap)
+    - [OLTP](#oltp)
+    - [OLAP](#olap)
+    - [Exercise](#exercise)
+- [PostgreSQL](#postgresql)
+  - [Postgres Docker Container](#postgres-docker-container)
+  - [Installed On Ubuntu](#installed-on-ubuntu)
 
 <a id="introduction"></a>
 ## Introduction
@@ -130,7 +147,7 @@
 ### File Processing Systems
 - It was similar to keeping files in a cabinet
 - No correlation (=relationship) between files
-- It was not possible for different system to communicate with each other. Hence, data had to be copied into different systems.
+- It was not possible for different systems to communicate with each other. Hence, data had to be copied into different systems.
 
 <a id="database-models"></a>
 ### Database Models
@@ -176,7 +193,7 @@
 - Have one table to store information about authors
 - Have one table to store information about books
 - Link the two tables with primary keys and foreign keys
-- Example:
+- Example:  
 <img alt="relational-model-01.svg" src="images/relational-model-01.svg" width=800>
 
 - To build the many-to-many relationship between books and authors:
@@ -240,7 +257,7 @@
 - Attributes: similar to degree. Each attribute (or column) is a specific feature of data
 - Domain/Constraint: is the type of data that is allowed in a column.
 - Tuple/Record: is a single row of data. It is one record. It is an entity broken down to columns as a tuple.
-- Cardinality: a collection of rows/tuples in a table
+- Cardinality: a collection of rows/tuples in a table  
 <img alt="rdbms-terms-01.svg" src="images/rdbms-terms-01.svg" width=800>
 
 #### Primary Key
