@@ -39,9 +39,9 @@
 - Note: It is possible to make a union of the results of two select statements with the same degree.
 - Example: 
     ```
-  SELECT old_clients AS customers, address FROM customers
+  SELECT old_clients AS customers, address FROM customers_prev
   UNION
-  SELECT current_clients AS customers, address FROM customers_prev;
+  SELECT current_clients AS customers, address FROM customers;
     ```
 - If there are similar records, `UNION` would prevent the duplication.
 - Use `UNION ALL` to allow duplication.

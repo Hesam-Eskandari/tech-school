@@ -364,7 +364,7 @@
 
 #### Comment
 - Single line comment: `-- the rest of the line after two dashes`
-- Multiline comment: `/* all the lines betwee these two signs */`
+- Multiline comment: `/* all the lines between these two signs */`
 - Add comments to complex queries
 
 #### Filtering Data
@@ -557,7 +557,7 @@
 ```
 - The above select statement is called inner join. 
 - Left Table: the table specified after the `FROM` keyword is called the left table.  
-- Right Table: the tables specified after the `JOIN` keyword is called the right table.  
+- Right Table: the table specified after the `JOIN` keyword is called the right table.  
 - Four different approaches to join tables:  
   1. Inner join: It returns the intersection of the two tables. Which means where primary key and foreign key in the two tables match.  
      Syntax: `SELECT <col-one> ... FROM <table-one> INNER JOIN <table-two> ON <table-one>.<primary-key> = <table-two>.<forien-key>;`   
