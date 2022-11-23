@@ -185,3 +185,168 @@
 - The current field content or the specified increment are not parsable as a double precision floating point number.
 - returns the value of field after the increment.
 - Read more at [redis.io](https://redis.io/commands/hincrbyfloat/)
+
+## SETS
+
+### SADD
+- Add a member to a set of members with the same key
+- `SADD key member [member ...]`
+- If key does not exist, it would create a new set
+- If a member already exist for the key, it won't be added again.
+- Returns and integer: the number of elements that were added to the set.
+- Read more at [redis.io](https://redis.io/commands/sadd/)
+
+### SCARD
+- Returns the set cardinality: the number of members a key has.
+- `SCARD key`
+- Returns an integer. If the key does not exist: returns zero.
+- Read more at [redis.io](https://redis.io/commands/scard/)
+
+### SDIFF
+- Returns the set of members that exist in the first set but not in others.
+- `SDIFF key1 [key2 key3 ...]`
+- Return type is an array
+- Keys that do not exist are considered as empty sets.
+- Read more at [redis.io](https://redis.io/commands/sdiff/)
+
+### SDIFFSTORE
+- Same as `SDIFF` but creates a new set and stores the result in it
+- `SDIFFSTORE destination key1 [key2 key3 ...]`
+- Returns an integer: the number of elements in the destination set
+- Read more at [redis.io](https://redis.io/commands/sdiffstore/)
+
+### SINTER
+- Returns a set containing the intersection of all the sets.
+- If a key does not exist, the result is an empty set
+- `SINTER key1 [key2 ...]`
+- Returns an array
+- Read more at [redis.io](https://redis.io/commands/sinter/)
+
+### SINTERCARD
+- Returns the cardinality of intersect
+- `SINTERCARD key1 [key2 ...] [LIMIT limit]`
+- If a key does not exist, it returns zero
+- If an intersection passes the limit, it would stop calculating that specific intersection and returns the limit
+- Read more at [redis.io](https://redis.io/commands/sintercard/)
+
+### SINTERSTORE
+- Store intersection of sets in a new set
+- `SINTERSTORE destination key1 [key2 ...]`
+- Returns an integer: the number of members in the destination set.
+- If destination already exist, it is overwritten.
+- Read more at [redis.io](https://redis.io/commands/sinterstore/)
+
+### SISMEMBER
+- Return 1 of member exists or zero if it doesn't or the key does not exist.
+- `SISMEMBER key member`
+- Read more ar [redis.io](https://redis.io/commands/sismember/)
+
+### SMEMBERS
+- Return a set members
+- `SMEMBERS key`
+- It is equivalent to `SINTER key`
+- Read more at [redis.io](https://redis.io/commands/smembers/)
+
+### SMISMEMBER
+- Returns an array indicating if the corresponding member exists.
+- `SMISMEMBER key member1 [member2 ...]`
+- Returns 1 for an existing member and zero otherwise.
+- Read more [redis.io](https://redis.io/commands/smismember/)
+
+### SMOVE
+- Move a member from a source set to a destination set
+- Returns 1 if the member was moved, 0 otherwise.
+- If the member does not exist in source or source does not exist, zero is returned
+- If destination does not exist, it would get created.
+- If the member already exists in the destination, it would just get deleted from the source.
+- `SMOVE source destination member`
+
+### SREM
+- Removes member(s) from a set and returns the number of removed members.
+- An error is returned if the key is not a set.
+- It returns 0 if the key does not exist.
+
+### SUNION
+- Return a set result of union of all the given sets
+- `SUNION key1 [key2 ...]`
+- Non-existing keys are considered as an empty set.
+- Read more at [redis.io](https://redis.io/commands/sunion/)
+
+### SUNIONSTORE
+- Stores the union of sets into a new destination set.
+- If destination set already exists, it gets overwritten.
+- `SUNIONSTORE destination key1 [key2 ...]`
+- Returns the  number of elements in the destination set.
+- Read more at [redis.io](https://redis.io/commands/sunionstore/)
+
+## Sorted Sets
+- A mix of hash and set
+- values are string with underlying type of number
+
+### ZADD
+- `ZADD key value member`
+- Value goes before member
+- It accepts the following options:
+  - XX: update if already exists
+  - NX: add only if it does not exist
+  - GT: only update or add if the new score is greater that the given score.
+  - CH: Modify the return value from the number of new elements added, to the total number of elements changed.
+  - INCR: act like `ZINCRBY`
+  - Read more at [redis.io](https://redis.io/commands/zadd/)
+  
+### ZCARD
+- Returns the sorted set cardinality
+- `ZCARD key`
+- Returns an integer
+
+### ZCOUNT
+- Returns the number of elements between min and max, inclusive
+- `ZCOUNT key min max`
+- Excluding the range: `ZCOUNT key (min (max`
+- Use `-inf` and `+inf` for the lowes and highest values.
+
+### ZSCORE
+- Return the score
+- `ZSCORE key member`
+
+### ZMSCORE
+- Return multiple scores
+- `ZMSCORE key member1 [member2 ...]`
+- Returns an array
+- Read more at [redis.io](https://redis.io/commands/zmscore/)
+
+### ZREM
+- Remove member(s)
+- `ZREM key member [member ...]`
+- Returns an integer: The number of members removed from the sorted set, not including non-existing members.
+- Read more at [redis.io](https://redis.io/commands/zrem/)
+
+### ZRANK
+- Returns the rank of member in the sorted set stored at key, with the scores ordered from low to high.
+- The rank (or index) is 0-based, which means that the member with the lowest score has rank 0.
+- `ZRANK key member`
+- Read more at [redis.io](https://redis.io/commands/zrank/)
+
+### ZUNION
+- placeholder
+
+### ZUNIONSTORE
+- placeholder
+
+### ZINTER
+- placeholder
+
+### ZPOPMAX
+- placeholder
+
+### ZPOPMIN
+- placeholder
+- 
+### ZPOPMIN
+- placeholder
+
+### ZRANGE
+- placeholder
+
+
+
