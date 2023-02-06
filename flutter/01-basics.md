@@ -8,6 +8,7 @@
   - For example in HTML an element can have attributes such as style and class, it can also have children elements.
   - These elements are called widgets in Flutter.  
   - The best source to find a proper widget and learn about it is the [Flutter Widget Catalog](https://docs.flutter.dev/development/ui/widgets)
+  - A flutter app is made of a tree of widgets.  
 
 - Create a new Flutter project
   - Command: `flutter create <snake_case_project_name>`  
@@ -59,7 +60,16 @@ Example:
         Widget build(BuildContext context) {
             return MaterialApp(
                 title: 'Title',
-                home: Text('Hello World!'),
+                home: Text('Hello World!'), // Use Scaffold() later
         }
     }
 ```
+
+Note: The `runApp()` method and `MaterialApp` widget are implemented in the `flutter` package.
+
+## Scaffold
+- [Scaffold](https://api.flutter.dev/flutter/material/Scaffold-class.html) is a widget which provides the base page design and styling.  
+- It is provided in the `flutter` package.  
+- It can set `appBar`, `body` and other properties with custom-made widgets.  
+- Use the [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html) widget for Scaffold's `appBar` property.  
+- Use a custom-made widget as the `body` property.  
