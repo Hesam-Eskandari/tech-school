@@ -2,7 +2,7 @@
 
 - Learn [Dart](https://www.darttutorial.org/) programming language
 - Use [Dartpad](https://dartpad.dev/?) web-based Dart playground to practice and test dart codes.
-- Flutter is a Dart UI framework which can build cross-platform user interfaces for web, Android, and IOS devices.
+- Flutter is a Dart framework which can build cross-platform user interfaces for web, Android, and IOS devices.
 - Widget
   - Building a hierarchy of elements is an intuitive approach to make a UI app.  
   - For example in HTML an element can have attributes such as style and class, it can also have children elements.
@@ -41,10 +41,10 @@
     - The widget's constructor is called (= The widget class is instantiated)
     - The widget's `setState()` callback method is called (available for stateful widgets)
   - Building a widget renders it in UI
-  - The build method bust be override by the inherited widget  
+  - The build method must be override by the inherited widget  
   - The return type of the build method is `Widget`.
 
-- `MaterialApp` is the base widget for home application.
+- `MaterialApp` is the base widget for the application home.
   - It can have title, theme, home, etc properties
   - We can set default app theme, the app title, and the main widget to run as home
   
@@ -73,3 +73,95 @@ Note: The `runApp()` method and `MaterialApp` widget are implemented in the `flu
 - It can set `appBar`, `body` and other properties with custom-made widgets.  
 - Use the [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html) widget for Scaffold's `appBar` property.  
 - Use a custom-made widget as the `body` property.  
+
+## Visible vs Invisible Widgets
+- Visible widgets have output (draw) on UI such as ElevatedButton(), Card(), Text()
+- Invisible widgets won't show anything themselves on UI, but they set styling and structure
+for their child/children widgets. Such as Row(), ListView().
+- Container() widget is invisible but can become visible given specific styling. It is similar to HTML <div> tag.
+
+## Buttons
+- child: is another widget such as Text()
+- onPressed: accepts a callback function and triggers when the button is pressed
+- onSubmitted: accepts a callback function and triggers when the keyboard "Enter" is tapped
+- Button widgets: [link](https://docs.flutter.dev/development/ui/widgets/material#Buttons)
+- Two ways of passing the callback function:
+  - Assume the function name is connect()
+  - Approach one: `onPressed: connect`  
+  - Approach two: `onPressed: () => connect()`
+  - The second approach allows you to pass arguments.
+
+## State
+- State of an object is the data the object (widget) is holding.
+- A stateless widget can only show (build UI of) its data when its constructor is called.
+- If the internal data (properties) of a stateless widget changes, it won't get rebuild and shown on UI.
+- Use stateful widgets if the UI of the widget is supposed to change.  
+- Once the stateful widget is ready to be rebuilt, the setState() method needs to be called.
+- The sample code bellow does not update the UI after pressing the button because MyApp widget is stateless.
+```
+  import 'package:flutter/material.dart';
+  
+  void main() => runApp(MyApp());
+  
+  class MyApp extends StatelessWidget {
+      var _textContent = 'Hello World!';
+      @override
+      Widget build(BuildContext context) {
+          return MaterialApp(
+              title: 'Title',
+              home: Column(
+                children: <widget>[
+                  Text(_textContent),
+                  ElevatedButton(
+                    child: Text('Change Text'),
+                    onPressed: () {_textContent = 'Changed Text';},
+                    )
+                ],
+              ),
+          );
+      }
+  }
+```
+- To make the code above work, we need to use a stateful widget:
+```
+  import 'package:flutter/material.dart';
+  
+  void main() => runApp(MyApp());
+  
+  class MyApp extends StatefulWidget {
+    State<StatefulWidget> createState() {
+      return MyAppState();
+    }
+  }
+  
+  class MyAppState extends State<MyApp> {
+      var _textContent = 'Hello World!';
+      @override
+      Widget build(BuildContext context) {
+          return MaterialApp(
+              title: 'Title',
+              home: Column(
+                children: <Widget>[
+                  Text(_textContent),
+                  ElevatedButton(
+                    child: Text('Change Text'),
+                    onPressed: () {
+                      setState(() {
+                        _textContent = 'Changed Text';
+                      });
+                      }
+                    )
+                ],
+              ),
+          );
+      }
+  }
+```
+
+## Dart Notes
+- Private class members start with underscore: `_textContent`  
+- Private members are accessible through the same file (and not just the class)
+- final properties are constant in runtime.
+- const properties are constant compile time.
+
+## 
