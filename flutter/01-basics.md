@@ -78,7 +78,7 @@ Note: The `runApp()` method and `MaterialApp` widget are implemented in the `flu
 - Visible widgets have output (draw) on UI such as ElevatedButton(), Card(), Text()
 - Invisible widgets won't show anything themselves on UI, but they set styling and structure
 for their child/children widgets. Such as Row(), ListView().
-- Container() widget is invisible but can become visible given specific styling. It is similar to HTML <div> tag.
+- Container() widget is invisible but can become visible given specific styling. It is similar to HTML `<div>` tag.
 
 ## Buttons
 - child: is another widget such as Text()
@@ -164,4 +164,5 @@ for their child/children widgets. Such as Row(), ListView().
 - final properties are constant in runtime.
 - const properties are constant compile time.
 
-## 
+## Flutter Best Practices
+- Since the state of a stateless widget cannot change after its creation, it is recommended to make all its properties `final`.

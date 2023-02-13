@@ -2,7 +2,7 @@
 
 - Key-Value database
 - Keys are always strings
-- Value can be string, hash, set, or list.
+- Value can be string, hash, set, list or others.
 
 ### DEL
 - Delete a key regardless the type of the value
@@ -63,7 +63,7 @@
 - Read more at [redis.io](https://redis.io/commands/msetnx/)
 
 ### GETDEL
-- Get the value og the key and remove the key.
+- Get the value of the key and remove the key.
 - Syntax: `GETDEL key`
 - Returns `null (nil)` if key does not exist.
 - Read more at [redis.io](https://redis.io/commands/getdel/)
@@ -349,4 +349,90 @@
 - placeholder
 
 
+## HyperLogLog
+- It is used to track the uniqueness of values.
+- Given a key-value pair, it can verify if the value was inserted before.
+- Returns 1 if the value was inserted before and returns 0 otherwise.
+- It does not store the values. It just uses a complex algorithm to keep track of visited values.
+- HyperLogLog has the maximum size of 12KB regardless of the number of given values.
+
+### PFADD
+- `PFADD key [element [element ...]]`
+- Example: `PFADD usernames jack mary mahsa`
+- Returns 1 if the value was inserted before and returns 0 otherwise.
+- It does not store the actual values. 
+- Read more at [redis.io](https://redis.io/commands/pfadd/)
+
+### PFCOUNT
+- Giv an approximated number of unique values were ever passed
+- There is 0.81% error is this estimation
+- `PFCOUNT key [key ...]`
+- When called with multiple keys, returns the approximated cardinality of the union of the HyperLogLogs passed, by internally merging the HyperLogLogs stored at the provided keys into a temporary HyperLogLog.
+- Read more at [redis.io](https://redis.io/commands/pfcount/)
+
+### PFMERGE
+- It merges multiple HyperLogLog keys to a destination key which is union of all given HyperLogLogs.
+- `PFMERGE destkey sourcekey [sourcekey ...]`
+- The command just returns OK.
+- If the destination variable exists, it is treated as one of the source sets and its cardinality will be included in the cardinality of the computed HyperLogLog.
+- Read more at [redis.io](https://redis.io/commands/pfmerge/)
+
+
+## LIST
+- It implements the two-way linked list data structure.
+- It is a legacy and try not to use it because of its performance penalties.
+
+### LPUSH
+- Push to the left side of the list
+- `LPUSH key value [value ...]`
+- Returns an integer: the length of the list after the push operation
+- Read more at [redis.io](https://redis.io/commands/lpush/)
+
+### RPUSH
+- Push to the right side of the list
+- `RPUSH key value [value ...]`
+- Returns an integer: the length of the list after the push operation
+- Read more at [redis.io](https://redis.io/commands/rpush/)
+
+### LINDEX
+- Get an element from a list by index
+- Indexed start from zero
+- Negative index will start from the other side of the list from -1.
+- `LINDEX key index`
+- When the value at key is not a list, an error is returned.
+- Returns the requested element, or nil when index is out of range.
+- Read more at [redis.io](https://redis.io/commands/lindex/)
+
+### RINDEX
+- Similar to `LINDEX` but from the right side.
+- Read more at [redis.io](https://redis.io/commands/rindex/)
+
+### LINSERT
+- Insert element before or after a pivot element from left side.
+- `LINSERT key <BEFORE | AFTER> pivot element`
+- Returns (an integer:) the length of the list after the insert operation, or -1 when the value pivot was not found.
+- Read more at [redis.io](https://redis.io/commands/linsert/)
+
+### RINSERT
+- Similar to `LINSERT` but from the right side.
+- Read more at [redis.io](https://redis.io/commands/rinsert/)
+
+### LLEN
+- Returns the length of a list
+- `LLEN key`
+- Returns the length of the list stored at key.
+- If key does not exist, it is interpreted as an empty list and 0 is returned.
+- An error is returned when the value stored at key is not a list.
+- Read more at [redis.io](https://redis.io/commands/llen/)
+
+### OTHER COMMANDS
+- `LPOP`
+- `LMPOP`
+- `LMOVE`
+- `LPOS`
+- `LREM`
+- `LSET`
+- `RPOPLPUSH`
+- `LTRIM`
+- Read more at [redis.io](https://redis.io/commands/?group=list)
 
