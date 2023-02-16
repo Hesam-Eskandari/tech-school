@@ -163,6 +163,79 @@ for their child/children widgets. Such as Row(), ListView().
 - Private members are accessible through the same file (and not just the class)
 - final properties are constant in runtime.
 - const properties are constant compile time.
+- If all properties of a widget are final, then the constructor can become constant (For stateless widgets).
+- If a widget has a constant constructor, then it can have a const object: `const Text('Connect')`
+- 
 
-## Flutter Best Practices
+## Flutter Notes
 - Since the state of a stateless widget cannot change after its creation, it is recommended to make all its properties `final`.
+- Flutter refreshed the frame 60 times per second. It can also render 120 FPS if the device allows.
+- When the build method of a widget is called, it recreates that widget and all widgets in the child subtree of it. 
+- A developer creates the widget tree. Flutter creates two other trees internally. The element tree and the render tree.
+- Each element in the element tree is pointing to a widget in the widget tree.
+- The job of the widget tree is to configure the element and render trees.
+- The element tree is responsible to connect the widget and render trees, manage state, and update the render tree when widget tree changes.
+- If a widget is stateful, there exist an independent state object in the element tree which has a pointer from element and points to the latest created widget.
+- When the `setState()` method is called, it creates a new widget, then the state object in the element tree points to it.
+- All child widgets of the rebuilt widget also gets rebuilt. But all the corresponding elements may not get rebuilt.
+- Flutter only rebuilds the elements that their corresponding widget UI is changed.
+  - For Example if a text, or style changes, then the element gets rebuilt as well.
+- When an element is rebuilt, the corresponding render gets rebuilt as well.
+- Rebuilding a widget is not much of a performance penalty since not all sub-widgets gets rendered again.
+- See the `Text` widget [constructors](https://api.flutter.dev/flutter/widgets/Text-class.html#constructors).
+- If a `const` is specified when creating a widget with constant constructor, the widget does not get rebuild in widget tree everytime the tree is rebuilt.
+- Since the `const` is constant compile time, a const widget cannot get rebuilt with a different constructor input (arguments).
+- It is not possible to use constant.
+
+## Widget Lifecycle
+### Stateless Widgets
+1. Constructor method
+2. The `build()` method
+
+### Stateful Widgets
+1. Construction method
+2. The `initState()` method. Can be overridden
+3. The `build()` method. Should be overridden
+4. The `setState()` method. Can be called
+5. The `didUpdateWidget()` method. Can be overridden
+6. The `build()` method
+7. The `dispose()` method. Can be overridden
+
+## Application Lifecycle
+1. `inactive`: When the app is not even running in background
+2. `paused`: When the app is not visible to the user, but it's running in background
+3. `resumed`: When app was `paused` before, but it started running again
+4. `suspended`: App is about to be exited. This mode is fragile and should not be trusted for important operations
+
+### Working with app lifecycle
+- Add mixin `WidgetsBinding` to the custom widget of interest
+- Override `initState()`, `didChangeAppLifecycleState(AppLifecycleState appState)`, and `dispose()`
+- Use the parameter `appState`
+- Example:
+```
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance.addObserver(this);
+}
+
+@override
+void didChangeAppLifecycleState(AppLifecycleState appState) {
+  print(appState);
+}
+
+@override
+dispose() {
+  super.dispose();
+  WidgetsBinding.instance.removeObserver(this);
+}
+```
+
+## Context
+- Flutter has a very efficient communication channel between widgets behind the scene.
+- The context builds the skeleton of the widget tree.
+- It is meta information on the widget and its location in the widget tree.
+- All widgets have their own internal context.
+- Context gives us a direct communication channel across the entire widget tree.
+- We can use context to access the application theme and navigation (media queries) from any widget.
+
