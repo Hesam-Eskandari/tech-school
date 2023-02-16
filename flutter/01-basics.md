@@ -16,7 +16,7 @@
 
 - Install (add) a third-party package:
   - Command: `flutter pub add <package-name>`  
-  - Import: `import 'package:<package-name>/filename.dart'`  
+  - Import: `import 'package:<package-name>/<filename>.dart'`  
   - It will add the package as dependency to `pubspec.yaml` file.
   - `pubspec.yaml` is similar to `package.json`  
   - An alternative solution is to add package to dependencies in `pubspec.yaml` and run:
@@ -41,7 +41,7 @@
     - The widget's constructor is called (= The widget class is instantiated)
     - The widget's `setState()` callback method is called (available for stateful widgets)
   - Building a widget renders it in UI
-  - The build method must be override by the inherited widget  
+  - The build method must be overridden by the inherited widget  
   - The return type of the build method is `Widget`.
 
 - `MaterialApp` is the base widget for the application home.
@@ -94,7 +94,7 @@ for their child/children widgets. Such as Row(), ListView().
 ## State
 - State of an object is the data the object (widget) is holding.
 - A stateless widget can only show (build UI of) its data when its constructor is called.
-- If the internal data (properties) of a stateless widget changes, it won't get rebuild and shown on UI.
+- If the internal data (properties) of a stateless widget changes, it won't get rebuilt and shown on UI.
 - Use stateful widgets if the UI of the widget is supposed to change.  
 - Once the stateful widget is ready to be rebuilt, the setState() method needs to be called.
 - The sample code bellow does not update the UI after pressing the button because MyApp widget is stateless.
@@ -161,15 +161,15 @@ for their child/children widgets. Such as Row(), ListView().
 ## Dart Notes
 - Private class members start with underscore: `_textContent`  
 - Private members are accessible through the same file (and not just the class)
-- final properties are constant in runtime.
-- const properties are constant compile time.
+- `final` properties are constant in runtime.
+- `const` properties are constant compile time.
 - If all properties of a widget are final, then the constructor can become constant (For stateless widgets).
 - If a widget has a constant constructor, then it can have a const object: `const Text('Connect')`
-- 
+- See the `Text` widget [constructors](https://api.flutter.dev/flutter/widgets/Text-class.html#constructors).
 
 ## Flutter Notes
 - Since the state of a stateless widget cannot change after its creation, it is recommended to make all its properties `final`.
-- Flutter refreshed the frame 60 times per second. It can also render 120 FPS if the device allows.
+- Flutter refreshes the frame 60 times per second. It can also render 120 FPS if the device allows.
 - When the build method of a widget is called, it recreates that widget and all widgets in the child subtree of it. 
 - A developer creates the widget tree. Flutter creates two other trees internally. The element tree and the render tree.
 - Each element in the element tree is pointing to a widget in the widget tree.
@@ -182,10 +182,8 @@ for their child/children widgets. Such as Row(), ListView().
   - For Example if a text, or style changes, then the element gets rebuilt as well.
 - When an element is rebuilt, the corresponding render gets rebuilt as well.
 - Rebuilding a widget is not much of a performance penalty since not all sub-widgets gets rendered again.
-- See the `Text` widget [constructors](https://api.flutter.dev/flutter/widgets/Text-class.html#constructors).
 - If a `const` is specified when creating a widget with constant constructor, the widget does not get rebuild in widget tree everytime the tree is rebuilt.
 - Since the `const` is constant compile time, a const widget cannot get rebuilt with a different constructor input (arguments).
-- It is not possible to use constant.
 
 ## Widget Lifecycle
 ### Stateless Widgets
