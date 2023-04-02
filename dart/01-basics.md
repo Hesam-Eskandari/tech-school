@@ -7,8 +7,8 @@
 - Dart is a statically types programming language
 
 ### Installation
-- Install Dart sdk: https://dart.dev/get-dart
-- Check installation: `dart --version`
+- Install Dart SDK: https://dart.dev/get-dart
+- Test installation: `dart --version`
 
 ### Hello World!
 ```dart
@@ -125,6 +125,211 @@ void main() {
   print('$sum == ${3 * each} -> ${sum == 3 * each}'); // 0.3 == 0.30000000000000004 -> false
 }
 ```
-- Converting a String to double: `double ageDouble = ageStr.toString();`
-  - Or: `String ageStr = 'ageDouble';`
-- Converting
+- Convert a String to double: `double ageDouble = ageStr.toString();`
+- Convert a double to string: `String ageStr = ageDouble.toString();`
+  - Or: `String ageStr = '$ageDouble';`
+- Convert double to int: `int age = ageDouble.toInt();`
+
+#### Boolean
+- Type: `bool`
+- Values: `false` or `true`
+- Boolean operations support short-circuit
+
+### Conditions And Loops
+#### If Statement
+```dart
+void main() {
+  if (condition) {
+    statement;
+  } else if (condition) {
+    statement;
+  } else {
+    statement;
+  }
+}
+```
+
+#### Ternary Operation
+```dart
+void main() {
+  int price = age > 60 || age <= 5 ? 20 : 30;
+}
+```
+
+#### Do While
+- It runs the statement inside the loop first and then checks the condition
+- It enters the loop at least once
+```dart
+void main() {
+  do {
+    statement;
+  } while(condition);
+}
+```
+- `Do-While` can become an infinite loop
+- It is possible to `break` or `continue`
+
+#### While
+- It checks the condition before running the statements inside the loop.
+- `While` can become an infinite loop
+- It is possible to `break` or `continue`
+```dart
+void main() {
+  while(condition) {
+    statement;
+  }
+}
+```
+
+#### For Loop
+- For loop can be used when the number of iterations is known
+```dart
+void main() {
+  for(initializer; condition; iterator) {
+    statement;
+  }
+}
+```
+- `For` can become an infinite loop
+  ```dart
+  void main() {
+    for(var i = 0; i >= 0; i++) {
+      statement;
+    }
+  }
+  ```
+- It is possible to `break` or `continue`
+
+#### For Each Loop
+- For-each loops over items of iterable. `For` loop can loop over their indexes.
+```dart
+void main() {
+  var numbers = [1, 2, 3, 4, 5];
+  int sum = 0;
+  for (var number in numbers) {
+    sum += number;
+  }
+  print(sum);
+}
+```
+
+#### Break Or Continue The Outer Loop
+- To break from an outer loop, you can simply return from the function.
+- The second approach is to use a label for each loop.
+- The second approach works for `continue` as well.
+  ```dart
+  void main() {
+    outerLoop:
+    for(var i = 0; i < 100; i++) {
+      for (var j = 0; j < 100; j++) {
+        if (i + j > 180) break outerLoop;
+        if (j == j) continue outerLoop;
+        print('$i,$j');
+      }
+    }
+  }
+  ```
+
+#### Switch
+- Switch evaluates the exact match to value of a variable
+- All cases should have `break`. Even the `default` case.
+- It is equivalent to `if-else if-else` statement.
+```dart
+void main() {
+  switch (expression)
+  {
+    case value1:
+      statement1;
+      break;
+    case value2:
+      statement2;
+      break;
+    case value3:
+    case value4:
+      statement3;
+      break;
+    case value5:
+    default:
+      statementN;
+      break;
+  }
+}
+```
+
+### Functions
+- Functions have two parts 
+  1. Signature
+  2. Body
+- Function signature: return type + function name + parameter list
+
+#### Function Declaration
+```dart
+returnType functionName(parameters) {
+  statement;
+  return returnType;
+}
+```
+- Return type can be `void`
+- Declared functions can be called before where they are defined.
+
+#### Arrow Function
+- Arrow functions can only have one line body.
+- Arrow functions are assigned to variables. They cannot be called before where they are defined.
+```dart
+void main() {
+  Function isNot = (bool boolean) => !boolean; // can use type "bool Function(bool)" instead of "Function" here
+  if (isNot(age<18)) print('Access granted');
+}
+```
+
+#### Anonymous Function
+- Similar to an arrow function, but without an arrow
+- Similar to a declared function, but without a name
+- It can have body with multiple lines
+- Anonymous functions are assigned to variables. They cannot be called before where they are defined.
+```dart
+void main() {
+  var isNot = (bool b){
+    return !b;
+  }; // notice the semicolon here
+    if (isNot(age<18)) print('Access granted');
+}
+```
+
+#### Optional Parameters
+- Optional parameters appear last in parameter list
+- A function can have either optional parameters or named parameters, but not both
+- An optional parameter must come with a default value
+- Use square brackets to specify optional parameters
+```dart
+void sayHi(String name, [String title = '']) {
+  print('Hi $title $name');
+}
+void main() {
+  sayHi('Alex');
+  sayHi('Mikes', 'Mr.');
+}
+```
+
+#### Named Parameters
+- Named parameters enable us specifying names of arguments when calling functions
+- A function can have either optional parameters or named parameters, but not both
+- A named parameter is also optional
+- To make a named parameter required, use `required` keyword
+- An optional named parameter must have a default value
+- Named parameters must appear last in parameters list
+- To **call** a function with named parameters, parameter names must be specified.
+```dart
+void sayHi(int age, {required String name, String title = ''}) {
+  print('Hi $title $name. You are $age');
+}
+void main() {
+  sayHi(25, name:'Alex');
+  sayHi(55, name:'Mikes', title:'Mr.');
+}
+```
+
+#### Function Are First-Class Citizens
+- A function can be assigned to a variable
+- Pass a function as an argument to another function
+- Return a function from another function
