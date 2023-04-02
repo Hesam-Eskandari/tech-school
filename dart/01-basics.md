@@ -167,7 +167,7 @@ void main() {
 }
 ```
 - `Do-While` can become an infinite loop
-- It is possible to `break` or `continue`
+- It is possible to `break` or `continue` 
 
 #### While
 - It checks the condition before running the statements inside the loop.
@@ -200,7 +200,7 @@ void main() {
   ```
 - It is possible to `break` or `continue`
 
-#### For Each Loop
+#### For-Each Loop
 - For-each loops over items of iterable. `For` loop can loop over their indexes.
 ```dart
 void main() {
@@ -266,14 +266,14 @@ void main() {
 ```dart
 returnType functionName(parameters) {
   statement;
-  return returnType;
+  return valueOfReturnType;
 }
 ```
 - Return type can be `void`
 - Declared functions can be called before where they are defined.
 
 #### Arrow Function
-- Arrow functions can only have one line body.
+- Arrow functions can only have one line body. The result of that one line is returned. No `return` keyword is required.
 - Arrow functions are assigned to variables. They cannot be called before where they are defined.
 ```dart
 void main() {
