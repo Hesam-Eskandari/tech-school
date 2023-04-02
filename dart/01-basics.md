@@ -344,21 +344,32 @@ void main() {
 
 ### Collections
 #### List
-- Dart uses `List<E>` class to manage lists.
+- Dart uses `List<E>` class to manage lists. It implements the `Iterable` class.
 - List is a collection of objects with a length.
 - A list is an indexed array of elements. They can contain duplicates.
-- Lists are passed by reference
 - Type: `List<T>`
-```dart
-void append5(List<int> list, int value) {
-  list.add(value);
-}
-void main() {
-  List<int> list = [1, 2, 3, 4];
-  append5(list, 5);
-  print(list); // [1, 2, 3, 4, 5]
-}
-```
+- Create lists:
+  ```dart
+  void main() {
+    var list = new List<int>.empty(growable: true); // growable is false by default: []
+    list.add(5); // [5]
+  
+    var nums = [1, 2, 3, 4, 5]; // type is inferred as List<int> and growable is true
+    List<String> fruits = ['apple', 'banana', 'orange']; // type is explicitly specified as List<String> and growable is true
+    var constants = <double>[3.141, 1.618]; // type is explicitly specified as List<String> and growable is true
+  }
+  ```
+- Lists are passed by reference
+  ```dart
+  void append(List<int> list, int value) {
+    list.add(value);
+  }
+  void main() {
+    List<int> list = [1, 2, 3, 4];
+    append(list, 5);
+    print(list); // [1, 2, 3, 4, 5]
+  }
+  ```
 - Use `from` constructor to copy a list elements to a new list: `var newList = new List<int>.from(olsList);`
   - Or use spreading operator: `List<int> newList = [...oldList]`
 - Use `generate` constructor to create a list of length `n` with elements returned from a function as second argument:
@@ -425,3 +436,63 @@ void main() {
 
 - Concatenate lists of same type: `var list = list1 + list2;`
   - Or: `var list = [...list1, ...list2];`
+
+#### Map
+- `Map` is a key/value pairs
+- Can access values by keys in `O(1)` for each key
+- Any immutable and non-reference type variable can be a key. For example, a list cannot be a key
+- Any value or reference can be a value in a map
+- Type: `Map<K, V>`
+- Create map literals:
+  ```dart
+  void main() {
+    var seasons = {'Spring': ['April', 'May', 'June'], 'Summer': ['July', 'August', 'September']}; // type inferred as Map<String, List<String>>
+    Map<String, String> capitals = {'USA': 'Washington', 'Canada': 'Ottawa'};
+    var brandAges = <String, int>{'Apple': 40, 'Google': 30};
+  }
+  ```
+- Regular map operations:
+  ```dart
+  void main() {
+    // assume maps are created
+    brandAges['Microsoft'] = 35; // Add or modify a key/value pair
+    var spring = seasons['Spring']; // Access a value by key. The `spring` type is `List<String>?`. It is nullable string
+    List<String>? spring = seasons['Spring']; // equivalent to above
+    var removedItem = seasons.remove('Spring'); // Remove a key from map and return its value
+    var capitalKeys = capitals.keys; //Get the list of keys
+    var capitalValues = capitals.values; // Get the list of values
+    var size = capitals.length; // Get the number of key/value pairs
+    bool isCapitalsEmpty = capitals.isEmpty; // useful for while loops
+    bool isNotCapitalsEmpty = capitals.isNotEmpty; // useful for while loops
+    bool hasCapital = capitals.containsKey('UK');
+    bool isValidCapital = capitals.containsValue('New York');
+    for (var country in capitals.keys) print(capitals[country]); // Iterate over keys
+    brandAges.forEach((string brand, int age) => print('$brand: $age')); // Iterate over key/value pairs
+    for (var entry in seasons.entries) {
+      print(entry.value);
+      print('$entry.key, $entry.value');
+    }
+  }
+  ```
+
+- Concatenate maps: `var newMap = {...firstMap, ...secondMap};`
+  ```dart
+  void main() {
+    Map<String, String> capitals = {'USA': 'Washington', 'Canada': 'Ottawa'};
+    var centers = <String, String>{'Alberta': 'Edmonton'};
+    var newMapSpread = {...capitals, ...centers}; // first approach
+    var newMap = <String, String>{}; // second approach
+    newMap.addAll(capitals);
+    newMap.addAll(centers);
+  }
+  ```
+
+- Dynamically typed map. It is not a good idea to declare and use a dynamic map. 
+  ```dart
+  void main() {
+    var capitals = <dynamic, dynamic>{}; // inferred as <dynamic, dynamic>{}
+    capitals = {'USA': 'Washington', 'Canada': 'Ottawa'};
+    capitals[25] = 'age'; 
+    print(capitals); // {USA: Washington, Canada: Ottawa, 25: age}
+  }
+  ```
