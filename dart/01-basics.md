@@ -17,7 +17,7 @@ void main() {
 }
 ```
 
-## Syntax
+## Basics
 - Statements end with semicolon
 - Use curly brackets for blocks
 
@@ -82,7 +82,7 @@ void main() {
 }
 
 ```
-- Value of a final should be assigned at the time of declaration or an object constructor.
+- Value of a final should be assigned at the time of declaration or in object constructor.
 
 ### Basic Types
 #### String
@@ -271,6 +271,14 @@ returnType functionName(parameters) {
 ```
 - Return type can be `void`
 - Declared functions can be called before where they are defined.
+- If return type for a function is `void`, then the function cannot return a value. But it can return nothing to exit the function.
+```dart
+void setAge(int age) {
+  if (age < 0) return;
+  this._age = age;
+}
+```
+
 
 #### Arrow Function
 - Arrow functions can only have one line body. The result of that one line is returned. No `return` keyword is required.
@@ -333,3 +341,87 @@ void main() {
 - A function can be assigned to a variable
 - Pass a function as an argument to another function
 - Return a function from another function
+
+### Collections
+#### List
+- Dart uses `List<E>` class to manage lists.
+- List is a collection of objects with a length.
+- A list is an indexed array of elements. They can contain duplicates.
+- Lists are passed by reference
+- Type: `List<T>`
+```dart
+void append5(List<int> list, int value) {
+  list.add(value);
+}
+void main() {
+  List<int> list = [1, 2, 3, 4];
+  append5(list, 5);
+  print(list); // [1, 2, 3, 4, 5]
+}
+```
+- Use `from` constructor to copy a list elements to a new list: `var newList = new List<int>.from(olsList);`
+  - Or use spreading operator: `List<int> newList = [...oldList]`
+- Use `generate` constructor to create a list of length `n` with elements returned from a function as second argument:
+  ```dart
+  void main() {
+    var squares = new List<int>.generate(10, (int index) => index * index); // 10 is length
+    print(squares);
+  }
+  ```
+- It is possible to use a declared function as well
+  ```dart
+  void main() {
+    var squares = new List<int>.generate(10, getSquare);
+    print(squares);
+  }
+  int getSquare(int value) {
+    return value * value;
+  }
+  ```
+- Get element at index `i`: `var value = square[i];`
+- Set element at index `i`: `square[5] = 16;`
+- Add element to the end of the list: `squares.add(100);`
+- Add a list to a list: `list1.addAll(list2);`
+- Remove the first occurrence an item from a list: `bool isFound = squares.remove(5);`
+- Remove an item from list at index: `int removedValue = squares.removeAt(5);`
+- Convert list to set: `Set<int> set = list.toSet();`
+- Convert list to string: `String listStr = list.toString();`
+  - Printing a list converts it to string by default by calling its `toString()` method.
+- Immutable list: 
+  - Use `final` keyword. An immutable list cannot be reassigned, but it can be modified.
+    - `final scores = [1, 2, 3, 4, 5];`
+  - Use `const` keyword to make a compile-time constant list which cannot be modified as well.
+    - `const scores = [1, 2, 3, 4, 5];`
+- Get size of a list with `length` property: `squares.length`
+- Check if list is empty (it is suitable for `while` conditions): `squares.isEmpty` and `squares.isNotEmpty` 
+- `ForEach`: Loops over elements. There is no access to `index` of elements.
+  ```dart
+  void main() {
+    var list = [1, 2, 3, 4, 5];
+    list.forEach((element) => print(element*2));
+  }
+  ```
+- If it is required to access indexes, either use a for loop or convert the list to map:
+  ```dart
+  void main() {
+    var list = [1, 2, 3, 4, 5];
+    list.asMap().forEach((index, element) => print('$index: $element'));
+  }
+    
+  ```
+- Collection `if`: use collection `if` in list literal to only add an element if a condition is true
+  ```dart
+  void main() {
+    var list = [1, 2, 3, if (capacity > 3) 4];
+  }
+  ```
+- Collection `for`: use collection `for` to add multiple elements to a list literal
+  ```dart
+  void main() {
+    var numbers = [1, 2, 3, 4, 5];
+    var list = [0, for (var number in numbers) number * number];
+  }
+  ```
+
+- Concatenate lists of same type: `var list = list1 + list2;`
+  - Or: `var list = [...list1, ...list2];`
