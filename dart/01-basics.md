@@ -337,7 +337,7 @@ void main() {
 }
 ```
 
-#### Function Are First-Class Citizens
+#### Functions Are First-Class Citizens
 - A function can be assigned to a variable
 - Pass a function as an argument to another function
 - Return a function from another function
@@ -454,7 +454,7 @@ void main() {
 - Regular map operations:
   ```dart
   void main() {
-    // assume maps are created
+    // assuming maps are created
     brandAges['Microsoft'] = 35; // Add or modify a key/value pair
     var spring = seasons['Spring']; // Access a value by key. The `spring` type is `List<String>?`. It is nullable string
     List<String>? spring = seasons['Spring']; // equivalent to above
@@ -496,3 +496,34 @@ void main() {
     print(capitals); // {USA: Washington, Canada: Ottawa, 25: age}
   }
   ```
+
+#### Set
+- Set is a collections of unique elements. It does not allow duplicate elements
+- Dart uses the `Set<E>` class to manage sets. It implements the `Iterable` class
+- Set does not maintain the order
+- Set has `length` property and `add`, `remove`, and `contains` methods
+- Create set:
+```dart
+void main() {
+  Set<String> planets = {'Earth', 'Mars'};
+  var planetSizesKM = <int>{65000, 30000};
+  var planesMassesBBT = {63900, 597200}; // type inferred as Set<int>
+  var countries = new Set<String>.from(['USA', 'Canada', 'China']); // set from iterable
+}
+```
+- Regular set operations:
+```dart
+void main() {
+  // assuming sets are created
+  bool isInserted = countries.add('Iran'); // returns true if 'Iran' did not exist before and is added now
+  bool isRemoved = countries.remove('New York'); // returns true if 'New York' existed and successfully removed
+  var country = countries.elementAt(1); // note that set does not maintain order
+  var numberOfCountries = countries.length;
+  countries.addAll(['Iran', 'Germany']); // add elements of an iterable and returns void
+  countries.removeAll(['Iran', 'Germany']); // remove elements of an iterable and returns void
+  countries.removeWhere((element) => element.length > 5);; // remove elements that matches a given condition and returns void
+  bool isExistsFrance = countries.contains('France');
+  var locations = countries.intersection(olympicWinnerCountries);
+  var allCountries = westCountries.union(eastCountries);
+}
+```
