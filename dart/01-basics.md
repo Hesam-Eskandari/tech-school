@@ -3,7 +3,7 @@
 ## Introduction
 - Dart is optimized for client side applications
 - Flutter uses Dart to create cross-platform mobile apps and web applications
-- It supports asynchronous and multi-thread programming
+- It supports asynchronous programming
 - Dart is a statically types programming language
 
 ### Installation
