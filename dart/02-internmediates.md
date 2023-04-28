@@ -254,8 +254,9 @@ void main() {
 }
 ```
 - In the example above, `hello` is a variable that can be reassigned.
-- The object assigned to `hello` is constant. It is instantiated at compile time.
+- The object that is initially assigned to `hello` is constant. It is instantiated at compile time.
 - The value `message` is constant itself. It cannot be reassigned.
+- An object with a non-constant constructor could not be assigned to `message`.
 - The properties of `Text` must be all final.
 - The `Text` class cannot have any setter for its properties.
 - Using constant constructor, Dart optimizes the memory so that if multiple objects have the same property values, Dart will create only one instance for them.
