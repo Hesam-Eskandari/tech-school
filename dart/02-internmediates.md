@@ -11,7 +11,7 @@
 - Fields define the current state of an object
 
 ### Behavior
-- Behaviors are defined actions an objects makes to change its states
+- Behaviors are defined actions an objects takes to change its states
 - Methods define behaviors of an object
 
 ### Definition
@@ -186,12 +186,12 @@ class Point {
   }
 
   set x(double value) {
-    // validate id needed
+    // validate if needed
     _x = value;
   }
 
   set y(double value) {
-    // validate id needed
+    // validate if needed
     _y = value;
   }
 
@@ -261,3 +261,47 @@ void main() {
 - The `Text` class cannot have any setter for its properties.
 - Using constant constructor, Dart optimizes the memory so that if multiple objects have the same property values, Dart will create only one instance for them.
 
+### Static Fields And Methods
+- Use `static` keyword before type when declaring a field or method
+- Getter and setter of a static field must be static
+- A static field or method belongs to class itself and not its objects
+- Use the class name to access a static field or method
+
+```dart
+class Point {
+  double _x;
+  double _y;
+
+  Point({double x = 0, double y = 0}): _x = x, _y = y {
+  _counter++;
+  }
+
+  static int _counter = 0;
+
+  static get counter => _counter;
+  get objCounter => Point.counter;
+  get x => _x;
+  get y => _y;
+  
+  static Point fromPointMirroredOrigin(Point point) {
+    return Point(x: point.y, y: point.x);
+  }
+  
+  @override
+  String toString() {
+    return 'Point(X: $_x, y: $_y)';
+  }
+}
+void main() {
+var point = Point(x:2, y:3);
+print(point);
+print(Point.counter);
+print(point.objCounter);
+
+var mirroredPoint = Point.fromPointMirroredOrigin(point);
+print(mirroredPoint);
+print(Point.counter);
+print(mirroredPoint.objCounter);
+print(point.objCounter);
+}
+```
