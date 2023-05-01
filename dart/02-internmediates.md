@@ -262,7 +262,7 @@ void main() {
 - Using constant constructor, Dart optimizes the memory so that if multiple objects have the same property values, Dart will create only one instance for them.
 
 ### Static Fields And Methods
-- Use `static` keyword before type when declaring a field or method
+- Use `static` keyword before type when declaring a static field or method: `static type name;`
 - Getter and setter of a static field must be static
 - A static field or method belongs to class itself and not its objects
 - Use the class name to access a static field or method
