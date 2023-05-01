@@ -264,7 +264,7 @@ void main() {
 ### Static Fields And Methods
 - Use `static` keyword before type when declaring a static field or method: `static type name;`
 - Getter and setter of a static field must be static
-- A static field or method belongs to class itself and not its objects
+- A static field or method belongs to class itself and not to its objects
 - Use the class name to access a static field or method
 
 ```dart
@@ -273,35 +273,35 @@ class Point {
   double _y;
 
   Point({double x = 0, double y = 0}): _x = x, _y = y {
-  _counter++;
+    _counter++;
   }
 
   static int _counter = 0;
 
-  static get counter => _counter;
-  get objCounter => Point.counter;
-  get x => _x;
-  get y => _y;
-  
+  static int get counter => _counter;
+  int get objCounter => Point.counter;
+  double get x => _x;
+  double get y => _y;
+
   static Point fromPointMirroredOrigin(Point point) {
     return Point(x: point.y, y: point.x);
   }
-  
+
   @override
   String toString() {
     return 'Point(X: $_x, y: $_y)';
   }
 }
 void main() {
-var point = Point(x:2, y:3);
-print(point);
-print(Point.counter);
-print(point.objCounter);
+  var point = Point(x:2, y:3);
+  print(point);
+  print(Point.counter);
+  print(point.objCounter);
 
-var mirroredPoint = Point.fromPointMirroredOrigin(point);
-print(mirroredPoint);
-print(Point.counter);
-print(mirroredPoint.objCounter);
-print(point.objCounter);
+  var mirroredPoint = Point.fromPointMirroredOrigin(point);
+  print(mirroredPoint);
+  print(Point.counter);
+  print(mirroredPoint.objCounter);
+  print(point.objCounter);
 }
 ```
