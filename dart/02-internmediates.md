@@ -278,8 +278,8 @@ class Point {
 
   static int _counter = 0;
 
-  static int get counter => _counter;
-  int get objCounter => Point.counter;
+  static int get counter => _counter;  // is only defined and existed in the Point class
+  int get objCounter => Point.counter;  // is copied in each encapsulated object
   double get x => _x;
   double get y => _y;
 
