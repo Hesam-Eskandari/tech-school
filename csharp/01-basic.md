@@ -2,7 +2,7 @@
 - [.Net Ingredients](#net-ingredients)
 - [CLR](#clr)
 - [Namespace](#namespaces)
-- [Assembly](#assembly-dll-or-exe)
+- [Assembly](#assembly)
 - [Application](#application)
 - [System](#system)
 - [Main Method](#main-method)
@@ -67,12 +67,12 @@ Note: ByteCode and IL Code are independent of computer which it’s running
 ###  Namespaces 
 - A container for related classes
 
-<a id='assembly-dll-or-exe'></a>
-### Assembly (DLL or EXE)
+<a id='assembly'></a>
+### Assembly
 - A container for related namespaces
 - It is a file on the disc
 - It can be DLL (dynamically linked library)
-- It can be an executable
+- It can be an executable (EXE file)
 
 <a id='application'></a>
 ### Application
@@ -93,14 +93,41 @@ Note: ByteCode and IL Code are independent of computer which it’s running
 file named Program.cs
 - Main is static and does not return anything (=void)
 - Main can accept a string array argument. (string[] args)
+```csharp
+public class Program 
+{
+    public static void main(string[] args) 
+    {
+        // code goes here
+    }
+}
+```
 
 <a id='constant-variables'></a>
 ### Constant Variables 
 - `const <data-type>  <identifier> = <value>; `
 - Constant identifiers are either PascalCase or all CAPITAL letters.
-- Hardcoded constants naming convention: underscore seperated all CAPITAL words
-- Constants calculated at runtime naming convention: PascalCase
-- Modifying a constant would give a compiler error
+- Hardcoded constants:
+  - They are compiled-time constants
+  - Naming convention: underscore seperated all CAPITAL words
+    ```csharp
+    const double PI = 3.141592;
+    ```
+- Constants calculated at runtime:
+  - Naming convention: PascalCase
+    ```csharp
+    using System;
+					
+    public class Program
+    {
+        public static readonly DateTime MarchFirst = new DateTime(2015, 03, 01);
+        public static void Main()
+        {
+            Console.WriteLine(MarchFirst);
+        }
+    }
+    ```
+- Modifying a constant would cause a compiler error
 
 <a id='variables'></a>
 ### Variables 
@@ -127,7 +154,7 @@ file named Program.cs
 <a id='overflowing'></a>
 ### Overflowing 
 - Example:
-  ```
+  ```csharp
   byte brightness = 255;
   brightness += 1;
   // result would be 0 instead of 256
@@ -136,7 +163,7 @@ file named Program.cs
 runtime
 - Use “checked” if you want to throw an exception if overflow happens
 - Example
-    ```
+    ```csharp
     checked 
         { }
     ```
@@ -157,7 +184,9 @@ runtime
 - Use it only if you are sure there will be no data loss
 - If not explicitly asked => compiler error
 - For example, we expect age to be less than 255. Then we can explicitly convert it from int to byte.
-- byte age = (byte)calculatedIntAge;
+  ```csharp
+  byte age = (byte)calculatedIntAge;
+  ```
 - Be aware of possible data loss when casting explicitly
 - Example:
 
@@ -167,33 +196,38 @@ runtime
 | 	00000000 00000000 00000001 00000011 |     ->     | 	    00000011 |
 
 - Casting a character to integer will return its integer ASCII code
-    - Example:
-		var code = (int) ’a’;
+  ```csharp
+  var code = (int) ’a’;
+  ```
 
 <a id='non-compatible-types'></a>
 ### Non-compatible Types 
 - Explicit casting won’t work for them
 - Example: string to integer
 - How to convert:
-    1. Method one: use “Convert” class from “System” namespace
-       - Example: int  age  =  Convert.ToInt32(ageJson);
-       - Note: from the method name, it appears that Convert class is part of .Net framework
-       - Other methods of the Convert class:
-           - ToByte()
-           - ToInt16()
-           - ToInt32()
-           - ToInt64()
-       - Example: bool decision = Convert.ToBoolean(“true”);
-    2. Method two: use C# Parse method:
-       - Example: int age = int.Parse(s);
-       - Parse is a C# method
+  1. Method one: use “Convert” class from “System” namespace
+     ```csharp
+     int age = Convert.ToInt32(ageJson);
+     ```
+     - Note: from the method name, it appears that Convert class is part of **.Net** framework
+     - Other methods of the Convert class:
+         - `ToByte()`
+         - `ToInt16()`
+         - `ToInt32()`
+         - `ToInt64()`
+     - Example: bool decision = Convert.ToBoolean(“true”);
+  2. Method two: use C# Parse method:
+     ```csharp
+     int age = int.Parse(s);
+     ```
+     - Parse is a C# method
 
 <a id='operators'></a>
 ### Operators 
 - Arithmetic:  +  -  *  /  %   ++   --   
     - Postfix increment: int b = a++;
         - "a" would be one number greater than "b"
-    - Prefix Increment: int b = ++a;
+    - Prefix Increment: `int b = ++a;`
         - "a" would have equal value as "b"
     - Same logic for decrement
 - Comparison:  ==  !=  >  >=  <  <=
@@ -218,13 +252,17 @@ runtime
 - Methods define the behaviour of a class
 - Object is an isolated instance of a class
 - Define a class: `<access-modifier> class <identifier> {}`
-    - Example: `public class Person {}`
+  ```csharp
+  public class Person {}
+  ```
 - Use `new` operator to create an object of a class
     - `new` operator allocates a space in memory for the object at runtime.
     - Example: create an instance (object) of the class “Person”
-        - `Person psn = new Person();`
-        - alternative syntax: `var psn = new Person();`
-    - Note: first “Person”  is type (class name) and second “Person” is constructor call
+        ```csharp
+        Person psn = new Person();  // syntax one
+        var psn = new Person();  // syntax two
+        ```
+    - Note: In the first syntax, the first “Person”  is type (class name) and second “Person” is constructor call
     - CLR takes care of allocating memory and freeing it at runtime.
 
 <a id='static'></a>
@@ -233,7 +271,7 @@ runtime
 class itself
 - There is no need to create an object of class to access a static member 
 of it.
-- We cannot access the static members through objects
+- We cannot access static members through the objects
 - There is only one instance of static member in memory and that is in 
 class itself.
 - Static members are also called class members. (class method, class 
@@ -254,16 +292,19 @@ attribute)
 - Arrays have fixed size. You need to specify the size in declaration, and it cannot be changed.
 - You need to allocate memory for arrays when declaring them. Use `new` operator for it.
 - Arrays are objects of the `Array` class. `Array` is a generic class.
-- Example: `int[] numbers = new int[3];`
-- Example: `var names = new string[2] {“John”, “Jane”};`
-- Example: `var names = new string[] {“John”, “Jane”}; // still the size is fixed. It’s implicit`
+  ```csharp
+  int[] numbers = new int[3];
+  var names = new string[2] {“John”, “Jane”};
+  var firstNames = new string[] {“John”, “Jane”}; // still the size is fixed. It’s implicit
+  ```
 - Use object initialization syntax if you know the values of entities in the array:
-
-    `int[] numbers = new int[3] {1, 2, 3};`
 - Use square brackets to read from and write to an entity of an array by index
 - Indexes start from 0
-- Read example: `int firstNum = numbers[0];`
-- Write example: `number[0] = 4;`
+  ```csharp
+  int[] numbers = new int[3] {1, 2, 3};
+  int firstNum = numbers[0]; // read element
+  number[0] = 4;  // write to element
+  ```
 - If declared but not initialized, entities of an array would be set to zero value of the array type
 - Zero value for numbers is zero, for string is null and for boolean is false.
 
@@ -272,34 +313,52 @@ attribute)
 - A sequence of characters
 - String (with capital s) => a class in .Net, string => C#
 - Use double quote for string literal
-- Example: `string firstName = “John”;`
+  ```csharp
+  string firstName = “John”;
+  ```
 - Concatenate strings with plus operator:
-    - Example: `fullName: firstName + “ “ + lastName;`
+  ```csharp
+  string fullName = firstName + “ “ + lastName;  
+  ```
 - Recommended: use string format instead of + operator (because strings are immutable)
-    - Example: `string fullName = string.Format(“{0} {1}”, firstName, lastName});`
+  ```csharp
+  string fullName = string.Format(“{0} {1}”, firstName, lastName});
+  ```
     - Note: placeholders 0, 1, etc are zero indexed. 
 - Strings are immutable (read only after creation). It means that any operation on strings will generate new strings rather than changing the original ones.
-- char  `firstChar = name[0]; // no error`
-- `name[0] = ‘D’; // compile error `
+  ```csharp
+  char firstChar = name[0]; // no error
+  name[0] = ‘D’; // compile error
+  ```
 - Escape characters: 
-    - \n => new line
-    - \t =>  tab
-    - \\\ => backslash
-    - \’ => single quotation
-    - \” => double quotation
+    - `\n` => new line
+    - `\t` =>  tab
+    - `\\\` => backslash
+    - `\’` => single quotation
+    - `\”` => double quotation
 - Verbatim strings: 
     - no character can scape in it
-    - Starts with @
-    - Example: `string path = @“c:\users\projects\directory”;`
-- `String.Join(<separator>, array);` // to join all items in an array with a separator between them
-- Length of a string as an integer: `fullName.Length`
+    - Starts with `@`
+    ```csharp
+    string path = @“c:\users\projects\directory”;
+    ```
+- Join all items in an array with a separator between them
+  ```csharp
+  String.Join(separator, array);
+  ```
+- Length of a string as an integer: 
+  ```csharp 
+  fullName.Length
+  ```
 - One string constructor overload to create a string accepts a character 
 array as argument
-    - Example: `var name = new string(array);`
+    ```csharp
+    var name = new string(array);
+    ```
 
 <a id='format-string'></a>
 #### Format string 
-  ```
+  ```csharp
   string.Format(“{0} {1}”, byte.MinValue, byte.MaxValue);
   console.WriteLine(“{0} {1}”, float.MinValue, float.MaxValue);
   ```
@@ -312,18 +371,19 @@ array as argument
 - Identifier should be PascalCase. Because it’s a constant
 - Items are comma separated. Semicolon after the latest item.
 - Example:
-  ```
-  public enum WeekDay 
-  {
-      Sunday = 1,
-      Monday = 2,
-      Tuesday = 3,
-      Wednesday = 4,
-      Thursday - 5,
-      Friday = 6,
-      Saturday = 7;
-  }
-  ```
+    ```csharp
+      public enum WeekDay 
+      {
+          Sunday = 1,
+          Monday = 2,
+          Tuesday = 3,
+          Wednesday = 4,
+          Thursday - 5,
+          Friday = 6,
+          Saturday = 7;
+      }
+    ```
+
 - If values (1, 2, …) are not given, it will start from zero by default.
 - The element with value of zero is the default item. If there is no zero value, then the first item is the default item.
 - To get the default item: `default(WeekDay)`. In our example it is `Sunday`
