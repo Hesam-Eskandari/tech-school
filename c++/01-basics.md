@@ -53,7 +53,7 @@ int main() {
   - Without arguments
   - With arguments
 
-### Main Without Arguments
+#### Main Without Arguments
 ```c++
 int main() {
     // code is written here
@@ -62,7 +62,7 @@ int main() {
 ```
 - To run: `./a.out`
 
-### Main With Arguments
+#### Main With Arguments
 ```c++
 int main(int argc, char *argv[]) {
     // code
@@ -74,3 +74,45 @@ int main(int argc, char *argv[]) {
 - The `*argv[]` is an array of arguments
 - To run: `./a.run arg1 arg2 arg3`
 
+### Namespace
+- Naming a part of the code helps to modularize the code and avoid naming conflict
+- Example: `std` is the name for the `standard` library in C++
+- Use the scope resolution operator to access items in a namespace
+  - Example: `std::cout`
+- One can implement another `cout` and store it in their own namespace
+  - Example: `myns::cout`
+
+#### Using Namespace Directive
+- To import and include all members of a namespace and use them directly
+- Example:
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int age;
+    cout << "Enter your age: ";
+    cin >> age;
+    cout << "You inserted " << age << endl;
+    return 0;
+}
+```
+
+- This approach may not be the best solution for large source codes.
+
+##### Import only the needed members
+- To avoid importing not needed elements and avoid name conflict
+```c++
+#include <iostream>
+using namespace std::cout;
+using namespace std::cin;
+using namespace std::endl;
+
+int main() {
+    int age;
+    cout << "Enter your age: ";
+    cin >> age;
+    cout << "You inserted " << age << endl;
+    return 0;
+}
+```
