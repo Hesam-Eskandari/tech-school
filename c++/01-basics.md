@@ -105,9 +105,9 @@ int main() {
 - To avoid importing not needed elements and avoid name conflicts
 ```c++
 #include <iostream>
-using namespace std::cout;
-using namespace std::cin;
-using namespace std::endl;
+using std::cout;
+using std::cin;
+using std::endl;
 
 int main() {
     int age;
@@ -159,3 +159,65 @@ int main() {
 ```
 
 - Note: Declare variables close to where they are used first
+
+#### Global Variables
+- Global variables are declared outside any class or function scope
+- Global variables are automatically set to zero value upon declaration
+
+### Primitive Data Types
+```c++
+#include <iostream>
+using std::cout;
+using std::endl;
+
+int main() {
+    int remainingDays = -15;  // usually 4 bytes: -2B to 2B, depending on architecture can be 2, 4, or 8 bytes
+    unsigned int age = 25;  // usually 4 bytes: 0 to 4B
+    long double earthDiameterMM {1.274e7};  // power of 10
+    cout << false << endl;
+
+    cout << "size of int: " << sizeof(int) << endl;
+    cout << "size of age: " << sizeof(age) << endl;
+    cout << "size of unsigned int: " << sizeof(unsigned int) << endl;
+    cout << "size of long: " << sizeof(long) << endl;  // at least the size of int. Usually 8 bytes
+    cout << "size of long long: " << sizeof(long long) << endl;
+    cout << "size of unsigned long long: " << sizeof(unsigned long long) << endl;
+    cout << "size of float: " << sizeof(float) << endl;
+    cout << "size of double: " << sizeof(double) << endl;  // usually 8 bytes
+    cout << "size of long double: " << sizeof(long double) << endl;
+    cout << "size of short: " << sizeof(short) << endl;  // usually 2 bytes
+    cout << "size of short int: " << sizeof(short int) << endl;  // equivalent to short
+    cout << "size of unsigned short: " << sizeof(unsigned short) << endl;
+    cout << "size of bool: " << sizeof(bool) << endl;  // 1 byte
+    cout << "size of char: " << sizeof(char) << endl;  // 1 byte
+    cout << "size of unsigned char: " << sizeof(unsigned char) << endl;
+}
+```
+
+#### Max And Min Of A Number Type
+
+- Import `climits` and `cfloat` libraries
+
+```c++
+#include <iostream>
+#include <climits>
+#include <cfloat>
+
+using std::cout;
+using std::endl;
+
+int main() {
+    cout << "Max of int: " << INT_MAX <<endl;
+    cout << "Min of int: " << INT_MIN <<endl;
+    cout << "Max of int16: " << INT16_MAX <<endl;
+    cout << "Max of short: " << SHRT_MAX <<endl;
+    cout << "Max of float: " << FLT_MAX <<endl;
+    cout << "Min of float: " << FLT_MIN <<endl;
+    cout << "Max of long: " << LONG_MAX <<endl;
+    cout << "Min of long: " << LONG_MIN <<endl;
+    cout << "Max of long long: " << LLONG_MAX <<endl;
+    cout << "Max of double: " << DBL_MAX <<endl;
+    cout << "Min of double: " << DBL_MIN <<endl;
+}
+```
+
