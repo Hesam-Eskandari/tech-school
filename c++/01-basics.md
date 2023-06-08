@@ -221,3 +221,52 @@ int main() {
 }
 ```
 
+### Constants
+### Literal Constants
+- They are placed on the right hand side of assignments
+```c++
+int main() {
+    int age = 25;  // age is not a constant. 25 is a literal constant
+    unsigned int count = 12U;  // "U" is not necessary. 12U is an unsigned integer constant
+    long double numberOfAtoms = 1.2e200L;
+    long double numberOfMolecules = 1.2e50;
+    long long numberOfCars = 123456789000LL;
+}
+```
+
+### Declared Constants
+- They are compiled time constants
+- Use `const` keyword to declare them
+- Reassigning a declared constant would cause a compiler error
+
+```c++
+int main() {
+    const int age = 30;
+    const unsigned wage = 20u;
+    const earthDiameter;  // compiler error: a value should be assigned when declaring a constant
+    age = 35;  // compiler error: cannot reassign a constant value
+}
+```
+
+### Defiled Constants
+- Used in older C and C++ codes
+- Avoid using it in your code
+- It uses the preprocessing directive `#define` to define a constant
+- Preprocessor replaces a defined constant with its value
+- Since the constant is defined before compiler runs, it cannot check types
+```c++
+#include<iostream>
+
+using std::cout;
+
+int main() {
+    #define pi  3.141592;
+    cout << pi;
+}
+```
+
+### Constant Expression
+- Will be explained later
+
+### Enumerated Constants
+- Will be explained later
