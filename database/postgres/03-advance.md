@@ -231,4 +231,15 @@ Cons:
 - Updates that move rows from one partition to another (slow or fail sometimes)
 - Inefficient queries can scan many partitions resulting in lower performance.
 - Schema changes can be challenging (DBMS usually manages it)
-- 
+
+## Replication
+
+### Logical Replication
+- Database level replication allows to use the pub-sub model for a replica database to replicate a primary database on the same host.
+- Run the `logical_replication_demo.sh` file. This file is Unix compatible. Docker needs to be installed and running.
+- To make it executable: `chmod +x logical_replication_demo.sh`
+- Make sure to never write directly to tables in the replica database that are subscribed to the primary database tables.
+  - You can lower the access level to readonly for processes other that the subscriber itself.
+- Logical replication is only supported for tables in Postgres.
+  - Views, materialized views, functions, etc. are not supported in logical replication.
+- Tables must be created on both sides (no migration runs automatically on the replica)
