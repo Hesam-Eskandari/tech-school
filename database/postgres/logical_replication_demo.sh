@@ -82,13 +82,13 @@ function exec_sql() {
   RES=$({ docker container exec "$CONTAINER_NAME" $COMMAND "$PSQL_COMMAND";} 2>&1);
 }
 
-USER="username";
-PASS="password";
+USER="postgres"; # not secure for production
+PASS="password"; # not secure for production
 PORT=5555;
 PG_DATA_DIR="$PWD/pg_data";
 CONTAINER_NAME="pg15";
-PRIMARY_DATABASE="staging";
-REPLICA_DATABASE="prod";
+PRIMARY_DATABASE="production";
+REPLICA_DATABASE="backup";
 IS_CLEANING=${1-false};
 
 if [ "$IS_CLEANING" != false ]; then
