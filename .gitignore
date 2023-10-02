@@ -3,3 +3,5 @@
 **/.idea
 
 **/pg_data
+**/pg_data_primary
+**/pg_data_standby

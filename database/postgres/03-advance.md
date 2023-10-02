@@ -243,3 +243,19 @@ Cons:
 - Logical replication is only supported for tables in Postgres.
   - Views, materialized views, functions, etc. are not supported in logical replication.
 - Tables must be created on both sides (no migration runs automatically on the replica)
+
+### Host-Level Replication
+- It requires at least two Postgres hosts to be created
+- One host is primary and others are standbys
+- Standbys are read-only and can only be updated from the primary
+- Both DML and DDL are enforced by the primary host. There is no need to run migrations on the standbys hosts.
+- You can customize which standbys to be synchronized and which ones are a-synchronized with the primary host.
+- A synchronized standby would enforce a DML or DDL transaction to be run on the standby at the same time it runs on the primary host.
+- A DML or DDL transaction waits for primary and all synchronized standbys to be committed.
+- A-synchronized standbys won't block DML or DDL transactions on the primary. They will have eventual consistency.
+- Run `host_replication_demo.sh` to see how host-level replication works.
+  - Docker is required to be installed
+  - Make it executable: `chmod +x host_replication_demo.sh`
+  - Run `./host_replication_demo.sh` to see a demo of `async` host-level replication.
+  - Run `./host_replication_demo.sh true` to clean up containers, volumes, network, etc.
+  - Run `./host_replication_demo.sh false true` to see a demo of `synced` host-level replication.
